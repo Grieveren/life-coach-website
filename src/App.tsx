@@ -1,5 +1,3 @@
-import React from 'react'
-
 function App() {
   return (
     <div className="min-h-screen bg-gray-50">
@@ -10,7 +8,7 @@ function App() {
         Professional website for life coaching services
       </p>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
