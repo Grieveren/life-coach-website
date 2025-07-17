@@ -21,7 +21,7 @@ const Blog: React.FC<BlogProps> = ({ className = '' }) => {
       tags: ['maternity-leave', 'career-transition', 'work-life-balance', 'professional-development'],
       readTime: 8,
       status: 'published',
-      featuredImage: '/api/placeholder/600/300'
+      featuredImage: 'https://picsum.photos/600/300?random=1'
     },
     {
       id: 'overcoming-imposter-syndrome',
@@ -34,7 +34,7 @@ const Blog: React.FC<BlogProps> = ({ className = '' }) => {
       tags: ['confidence', 'imposter-syndrome', 'mindset', 'professional-growth'],
       readTime: 6,
       status: 'published',
-      featuredImage: '/api/placeholder/600/300'
+      featuredImage: 'https://picsum.photos/600/300?random=2'
     },
     {
       id: 'networking-strategies-for-career-changers',
@@ -59,7 +59,7 @@ const Blog: React.FC<BlogProps> = ({ className = '' }) => {
       tags: ['success-story', 'marketing', 'career-break', 'transformation'],
       readTime: 5,
       status: 'published',
-      featuredImage: '/api/placeholder/600/300'
+      featuredImage: 'https://picsum.photos/600/300?random=3'
     },
     {
       id: 'work-life-balance-strategies',

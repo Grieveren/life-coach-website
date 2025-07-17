@@ -4,6 +4,7 @@ import About from './components/sections/About';
 import Services from './components/sections/Services';
 import Testimonials from './components/sections/Testimonials';
 import Blog from './components/sections/Blog';
+import Contact from './components/sections/Contact';
 
 function App() {
   return (
@@ -28,14 +29,7 @@ function App() {
         <Blog />
 
         {/* Contact Section */}
-        <section id="contact" className="min-h-screen flex items-center justify-center bg-white">
-          <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Contact</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Get in touch to schedule a consultation and take the next step in your career journey.
-            </p>
-          </div>
-        </section>
+        <Contact />
       </main>
     </div>
   );

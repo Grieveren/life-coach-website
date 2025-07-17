@@ -47,14 +47,28 @@ const Header: React.FC<HeaderProps> = ({
     return () => document.removeEventListener('click', handleClickOutside);
   }, [isMenuOpen]);
 
-  // Smooth scroll function
+  // Smooth scroll function with dynamic header offset
   const handleSmoothScroll = (href: string) => {
     if (href.startsWith('#')) {
       const element = document.querySelector(href);
       if (element) {
-        element.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
+        // Different offsets for different sections
+        const sectionId = href.substring(1); // Remove the '#'
+        let headerHeight = 40; // Default offset for services, testimonials, blog
+
+        // Specific offsets for different sections
+        if (sectionId === 'home' || sectionId === 'about') {
+          headerHeight = 10; // Smaller offset for home and about
+        } else if (sectionId === 'contact') {
+          headerHeight = 20; // Custom offset for contact section
+        }
+
+        const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+        const offsetPosition = elementPosition - headerHeight;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
         });
       }
     }
@@ -67,11 +81,10 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-white shadow-md backdrop-blur-sm'
-          : 'bg-white/95 backdrop-blur-sm'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+        ? 'bg-white shadow-md backdrop-blur-sm'
+        : 'bg-white/95 backdrop-blur-sm'
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 md:h-20">
@@ -112,19 +125,16 @@ const Header: React.FC<HeaderProps> = ({
           >
             <div className="w-6 h-6 flex flex-col justify-center items-center">
               <span
-                className={`block w-5 h-0.5 bg-current transition-all duration-300 ${
-                  isMenuOpen ? 'rotate-45 translate-y-1' : '-translate-y-1'
-                }`}
+                className={`block w-5 h-0.5 bg-current transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-1' : '-translate-y-1'
+                  }`}
               ></span>
               <span
-                className={`block w-5 h-0.5 bg-current transition-all duration-300 ${
-                  isMenuOpen ? 'opacity-0' : 'opacity-100'
-                }`}
+                className={`block w-5 h-0.5 bg-current transition-all duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'
+                  }`}
               ></span>
               <span
-                className={`block w-5 h-0.5 bg-current transition-all duration-300 ${
-                  isMenuOpen ? '-rotate-45 -translate-y-1' : 'translate-y-1'
-                }`}
+                className={`block w-5 h-0.5 bg-current transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-1' : 'translate-y-1'
+                  }`}
               ></span>
             </div>
           </button>
@@ -132,11 +142,10 @@ const Header: React.FC<HeaderProps> = ({
 
         {/* Mobile Navigation Menu */}
         <div
-          className={`md:hidden mobile-menu transition-all duration-300 ease-in-out ${
-            isMenuOpen
-              ? 'max-h-96 opacity-100 visible'
-              : 'max-h-0 opacity-0 invisible'
-          } overflow-hidden`}
+          className={`md:hidden mobile-menu transition-all duration-300 ease-in-out ${isMenuOpen
+            ? 'max-h-96 opacity-100 visible'
+            : 'max-h-0 opacity-0 invisible'
+            } overflow-hidden`}
         >
           <nav className="py-4 border-t border-gray-200">
             {navigation.map((item) => (
