@@ -69,7 +69,7 @@ describe('About Component', () => {
     // Check for default credentials
     expect(screen.getByText('ICF Certified')).toBeInTheDocument();
     expect(screen.getByText('HR Professional')).toBeInTheDocument();
-    expect(screen.getByText('Mother of Two')).toBeInTheDocument();
+    expect(screen.getByText('Proud Mother')).toBeInTheDocument();
   });
 
   it('has proper accessibility attributes', () => {

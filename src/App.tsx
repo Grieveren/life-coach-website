@@ -2,6 +2,7 @@ import Header from './components/common/Header';
 import Hero from './components/sections/Hero';
 import About from './components/sections/About';
 import Services from './components/sections/Services';
+import Testimonials from './components/sections/Testimonials';
 
 function App() {
   return (
@@ -20,14 +21,7 @@ function App() {
         <Services />
 
         {/* Testimonials Section */}
-        <section id="testimonials" className="min-h-screen flex items-center justify-center bg-white">
-          <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Testimonials</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Read success stories and feedback from clients who have transformed their careers.
-            </p>
-          </div>
-        </section>
+        <Testimonials />
 
         {/* Blog Section */}
         <section id="blog" className="min-h-screen flex items-center justify-center bg-gray-50">

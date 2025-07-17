@@ -26,7 +26,7 @@ describe('Hero Component', () => {
       render(<Hero />);
       
       expect(screen.getByText(/Hi, I'm/)).toBeInTheDocument();
-      expect(screen.getByText('Sarah Johnson')).toBeInTheDocument();
+      expect(screen.getByText('Andrea Gray')).toBeInTheDocument();
       expect(screen.getByText('Empowering Women to Reclaim Their Careers')).toBeInTheDocument();
       expect(screen.getByText(/Specialized life coaching for mothers/)).toBeInTheDocument();
       expect(screen.getByRole('button', { name: /Start Your Journey/i })).toBeInTheDocument();

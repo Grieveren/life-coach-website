@@ -45,7 +45,7 @@
   - Write tests for Services component and ServiceCard interactions
   - _Requirements: 2.1, 2.2, 2.3, 5.1_
 
-- [ ] 7. Build Testimonials section for social proof
+- [x] 7. Build Testimonials section for social proof
   - Create Testimonials component with client feedback display
   - Implement TestimonialCard component for individual testimonials
   - Add rotating testimonials functionality
