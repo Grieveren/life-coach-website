@@ -1,5 +1,6 @@
 import Header from './components/common/Header';
 import Hero from './components/sections/Hero';
+import About from './components/sections/About';
 
 function App() {
   return (
@@ -12,14 +13,7 @@ function App() {
         <Hero />
 
         {/* About Section */}
-        <section id="about" className="min-h-screen flex items-center justify-center bg-white">
-          <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">About</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Learn about our professional background and expertise in helping women successfully return to work.
-            </p>
-          </div>
-        </section>
+        <About />
 
         {/* Services Section */}
         <section id="services" className="min-h-screen flex items-center justify-center bg-gray-50">
