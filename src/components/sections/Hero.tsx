@@ -22,9 +22,14 @@ const Hero: React.FC<HeroProps> = ({
       // Default scroll to contact section
       const contactSection = document.getElementById('contact');
       if (contactSection) {
-        contactSection.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
+        // Use the same offset logic as in Header component
+        const headerHeight = 20; // Same offset as in Header for contact section
+        const elementPosition = contactSection.getBoundingClientRect().top + window.scrollY;
+        const offsetPosition = elementPosition - headerHeight;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
         });
       }
     }
