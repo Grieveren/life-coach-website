@@ -1,14 +1,16 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { vi, describe, it, expect, beforeEach } from 'vitest';
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import '@testing-library/jest-dom';
 import Header from '../Header';
 import { NavMenuItem } from '../../../types';
 
 // Mock smooth scrolling
-const mockScrollIntoView = vi.fn();
-Object.defineProperty(Element.prototype, 'scrollIntoView', {
-  value: mockScrollIntoView,
+const mockScrollTo = vi.fn();
+const mockGetBoundingClientRect = vi.fn().mockReturnValue({ top: 100 });
+
+Object.defineProperty(window, 'scrollTo', {
+  value: mockScrollTo,
   writable: true,
 });
 
@@ -26,9 +28,19 @@ const mockNavigation: NavMenuItem[] = [
 
 describe('Header Component', () => {
   beforeEach(() => {
-    mockScrollIntoView.mockClear();
+    mockScrollTo.mockClear();
+    mockGetBoundingClientRect.mockClear();
     // Reset scroll position
     Object.defineProperty(window, 'scrollY', { value: 0, writable: true });
+    
+    // Reset document.querySelector mock
+    vi.restoreAllMocks();
+  });
+
+  afterEach(() => {
+    // Clean up any remaining mocks and timers
+    vi.clearAllTimers();
+    vi.restoreAllMocks();
   });
 
   describe('Rendering', () => {
@@ -77,19 +89,24 @@ describe('Header Component', () => {
     });
 
     it('handles navigation click with smooth scroll', async () => {
-      // Mock querySelector to return a mock element
-      const mockElement = { scrollIntoView: mockScrollIntoView };
+      // Create a mock element with getBoundingClientRect method
+      const mockElement = {
+        getBoundingClientRect: () => ({ top: 100 })
+      };
+      
+      // Mock document.querySelector to return our mock element
       vi.spyOn(document, 'querySelector').mockReturnValue(mockElement as any);
 
       render(<Header navigation={mockNavigation} />);
       
       const desktopNav = screen.getAllByRole('navigation')[0]; // First nav is desktop
       const homeButton = desktopNav.querySelector('button') as HTMLButtonElement;
+      
       await userEvent.click(homeButton);
       
-      expect(mockScrollIntoView).toHaveBeenCalledWith({
-        behavior: 'smooth',
-        block: 'start',
+      expect(mockScrollTo).toHaveBeenCalledWith({
+        top: 90, // 100 (element top) + 0 (scrollY) - 10 (headerHeight for home)
+        behavior: 'smooth'
       });
     });
 
@@ -130,7 +147,12 @@ describe('Header Component', () => {
     });
 
     it('closes mobile menu when navigation item is clicked', async () => {
-      const mockElement = { scrollIntoView: mockScrollIntoView };
+      // Create a mock element with getBoundingClientRect method
+      const mockElement = {
+        getBoundingClientRect: () => ({ top: 100 })
+      };
+      
+      // Mock document.querySelector to return our mock element
       vi.spyOn(document, 'querySelector').mockReturnValue(mockElement as any);
 
       render(<Header navigation={mockNavigation} />);
@@ -145,7 +167,10 @@ describe('Header Component', () => {
       const mobileHomeButton = mobileMenu.querySelector('button') as HTMLButtonElement;
       await userEvent.click(mobileHomeButton);
       
-      expect(mobileMenu.parentElement).toHaveClass('max-h-0', 'opacity-0', 'invisible');
+      // Wait for the menu to close
+      await waitFor(() => {
+        expect(mobileMenu.parentElement).toHaveClass('max-h-0', 'opacity-0', 'invisible');
+      }, { timeout: 1000 });
     });
 
     it('updates hamburger icon animation when menu is open', async () => {

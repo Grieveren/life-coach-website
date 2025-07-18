@@ -1,4 +1,5 @@
 import Header from './components/common/Header';
+import Footer from './components/common/Footer';
 import Hero from './components/sections/Hero';
 import About from './components/sections/About';
 import Services from './components/sections/Services';
@@ -31,6 +32,9 @@ function App() {
         {/* Contact Section */}
         <Contact />
       </main>
+
+      {/* Footer */}
+      <Footer siteName="Andrea Grey Coaching" />
     </div>
   );
 }
