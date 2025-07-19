@@ -175,11 +175,30 @@ interface BlogPost {
 ## Design System
 
 ### Color Palette
-- **Primary:** Teal (600-700) for main actions and accents
-- **Secondary:** Blue (600-700) for supporting elements
-- **Neutral:** Gray scale (50-900) for text and backgrounds
-- **Success:** Green (400-800) for positive feedback
-- **Error:** Red (400-800) for error states
+The website uses a professional, accessible color system with full 50-900 scales:
+
+- **Primary Teal** (`primary-*`): Main brand color for actions and accents (#14b8a6 at 500)
+  - Used for: Primary CTAs, navigation highlights, brand elements
+  - Scale: 50 (#f0fdfa) to 900 (#134e4a)
+
+- **Secondary Blue** (`secondary-*`): Supporting elements and highlights (#3b82f6 at 500)
+  - Used for: Supporting buttons, links, secondary actions
+  - Scale: 50 (#eff6ff) to 900 (#1e3a8a)
+
+- **Success Green** (`success-*`): Positive feedback and confirmations (#22c55e at 500)
+  - Used for: Form success states, positive feedback, confirmations
+  - Scale: 50 (#f0fdf4) to 900 (#14532d)
+
+- **Error Red** (`error-*`): Error states and warnings (#ef4444 at 500)
+  - Used for: Form validation errors, error messages, critical alerts
+  - Scale: 50 (#fef2f2) to 900 (#7f1d1d)
+
+- **Warning Yellow** (`warning-*`): Caution and attention states (#f59e0b at 500)
+  - Used for: Caution states, pending actions, attention-grabbing elements
+  - Scale: 50 (#fffbeb) to 900 (#78350f)
+
+- **Neutral Gray**: Text and background colors (unchanged)
+  - Scale: 50 to 900 for comprehensive text and background options
 
 ### Typography
 - **Headings:** Bold weights with responsive sizing

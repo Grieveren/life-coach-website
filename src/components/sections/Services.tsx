@@ -80,7 +80,7 @@ const Services: React.FC<ServicesProps> = ({ className = '' }) => {
               <p className="text-gray-600 mb-4">{error}</p>
               <button 
                 onClick={() => window.location.reload()}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200"
+                className="btn-secondary focus-visible"
               >
                 Try Again
               </button>
@@ -107,7 +107,7 @@ const Services: React.FC<ServicesProps> = ({ className = '' }) => {
         </div>
 
         {/* Bottom CTA Section */}
-        <div className="text-center mt-12 bg-white rounded-lg shadow-sm p-8">
+        <div className="text-center mt-12 card p-8">
           <h3 className="text-2xl font-semibold text-gray-900 mb-4">
             Not sure which program is right for you?
           </h3>
@@ -115,7 +115,7 @@ const Services: React.FC<ServicesProps> = ({ className = '' }) => {
             Schedule a free 30-minute consultation to discuss your goals and find the perfect coaching solution for your unique situation.
           </p>
           <button 
-            className="btn-touch bg-blue-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-md hover:bg-blue-700 active:bg-blue-800 transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 touch-manipulation"
+            className="btn-primary focus-visible"
             data-testid="services-consultation-cta"
             onClick={() => {
               const contactSection = document.getElementById('contact');

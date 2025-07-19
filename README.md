@@ -61,6 +61,26 @@ src/
 └── index.css                    # Global styles and Tailwind imports
 ```
 
+## 🎨 Design System
+
+### Color Palette
+The website uses a professional, accessible color system designed for coaching and professional services:
+
+- **Primary Teal** (`primary-*`): Used for main CTAs, navigation highlights, and brand elements
+- **Secondary Blue** (`secondary-*`): Supporting buttons, links, and secondary actions  
+- **Success Green** (`success-*`): Form success states, positive feedback, and confirmations
+- **Error Red** (`error-*`): Form validation errors, error messages, and critical alerts
+- **Warning Yellow** (`warning-*`): Caution states, pending actions, and attention-grabbing elements
+
+Each color includes a full scale from 50 (lightest) to 900 (darkest) for flexible usage across components and states.
+
+### Usage Guidelines
+- Use `primary-600` for main action buttons and key interactive elements
+- Apply `secondary-500` for supporting actions and informational elements
+- Implement `success-500` for positive feedback and successful form submissions
+- Use `error-500` for form validation errors and critical messaging
+- Apply `warning-500` for cautionary states and pending actions
+
 ## 🎨 Components Overview
 
 ### Core Sections
@@ -224,12 +244,22 @@ The project currently uses placeholder images from [Picsum Photos](https://picsu
 - Blog post featured images
 - Testimonial photos (with permission)
 
+## 📚 Documentation
+
+- **[Design System Guide](docs/DESIGN_SYSTEM.md)** - Comprehensive color palette, component classes, and usage guidelines
+- **[Content Management](docs/CONTENT_MANAGEMENT.md)** - JSON-based content management system documentation
+
 ## 🔧 Configuration
 
 ### Tailwind CSS
 The project uses a custom Tailwind configuration with:
 - **Extended Breakpoints**: Custom `xs` breakpoint (475px) plus standard responsive breakpoints
-- **Brand Color Palette**: Primary (blue), secondary (amber), and accent (red) color scales
+- **Professional Color System**: 
+  - **Primary Teal** (`primary`): Main brand color for actions and accents (#14b8a6)
+  - **Secondary Blue** (`secondary`): Supporting elements and highlights (#3b82f6)
+  - **Success Green** (`success`): Positive feedback and confirmations (#22c55e)
+  - **Error Red** (`error`): Error states and warnings (#ef4444)
+  - **Warning Yellow** (`warning`): Caution and attention states (#f59e0b)
 - **Custom Typography**: Extended font sizes with optimized line heights
 - **Custom Spacing**: Additional spacing utilities (18, 88) and `screen-small` min-height
 - **Inter Font Family**: Professional typography with system fallbacks

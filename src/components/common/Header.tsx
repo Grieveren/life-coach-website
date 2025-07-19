@@ -107,21 +107,21 @@ const Header: React.FC<HeaderProps> = ({
                 className="h-8 w-8 md:h-10 md:w-10 object-contain"
               />
             )}
-            <span className="text-xl md:text-2xl font-bold text-gray-800 hover:text-blue-600 transition-colors">
+            <span className="text-xl md:text-2xl font-bold text-gray-900 hover:text-primary-600 transition-colors duration-300">
               {siteName}
             </span>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-8" aria-label="Main navigation">
             {navigation.map((item) => (
               <button
                 key={item.id}
                 onClick={() => handleSmoothScroll(item.href)}
-                className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 relative group"
+                className="text-gray-700 hover:text-primary-600 font-medium transition-colors duration-300 relative group focus-visible"
               >
                 {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-200 group-hover:w-full"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
               </button>
             ))}
           </nav>
@@ -129,7 +129,7 @@ const Header: React.FC<HeaderProps> = ({
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMenu}
-            className="md:hidden hamburger-button btn-touch p-3 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100 active:bg-gray-200 transition-colors touch-manipulation"
+            className="md:hidden hamburger-button btn-touch p-3 rounded-md text-gray-700 hover:text-primary-600 hover:bg-gray-100 active:bg-gray-200 transition-colors duration-300 focus-visible touch-manipulation"
             aria-label="Toggle navigation menu"
             aria-expanded={isMenuOpen}
           >
@@ -157,12 +157,12 @@ const Header: React.FC<HeaderProps> = ({
             : 'max-h-0 opacity-0 invisible'
             } overflow-hidden`}
         >
-          <nav className="py-4 border-t border-gray-200">
+          <nav className="py-4 border-t border-gray-200" aria-label="Mobile navigation">
             {navigation.map((item) => (
               <button
                 key={item.id}
                 onClick={() => handleSmoothScroll(item.href)}
-                className="btn-touch block w-full text-left px-4 py-4 text-gray-700 hover:text-blue-600 hover:bg-gray-50 active:bg-gray-100 font-medium transition-colors duration-200 touch-manipulation"
+                className="btn-touch block w-full text-left px-4 py-4 text-gray-700 hover:text-primary-600 hover:bg-gray-50 active:bg-gray-100 font-medium transition-colors duration-300 focus-visible touch-manipulation"
               >
                 {item.label}
               </button>

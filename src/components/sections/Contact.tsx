@@ -78,10 +78,10 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-20 bg-gray-50">
+    <section id="contact" className="py-20 bg-gray-50" role="region" aria-labelledby="contact-heading">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 id="contact-heading" className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Get In Touch
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -105,8 +105,8 @@ const Contact: React.FC = () => {
             <div className="space-y-6">
               <div className="flex items-start space-x-4">
                 <div className="flex-shrink-0">
-                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
+                    <svg className="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                   </div>
@@ -119,8 +119,8 @@ const Contact: React.FC = () => {
 
               <div className="flex items-start space-x-4">
                 <div className="flex-shrink-0">
-                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-10 h-10 bg-secondary-100 rounded-lg flex items-center justify-center">
+                    <svg className="w-5 h-5 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
                   </div>
@@ -133,8 +133,8 @@ const Contact: React.FC = () => {
 
               <div className="flex items-start space-x-4">
                 <div className="flex-shrink-0">
-                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-10 h-10 bg-success-100 rounded-lg flex items-center justify-center">
+                    <svg className="w-5 h-5 text-success-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
@@ -168,13 +168,11 @@ const Contact: React.FC = () => {
                       message: 'Name must be less than 50 characters',
                     },
                   })}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
-                    errors.name ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  className={errors.name ? 'form-input-error' : 'form-input'}
                   placeholder="Your full name"
                 />
                 {errors.name && (
-                  <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
+                  <p className="mt-1 text-sm text-error-600">{errors.name.message}</p>
                 )}
               </div>
 
@@ -192,13 +190,11 @@ const Contact: React.FC = () => {
                       message: 'Please enter a valid email address',
                     },
                   })}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
-                    errors.email ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  className={errors.email ? 'form-input-error' : 'form-input'}
                   placeholder="your.email@example.com"
                 />
                 {errors.email && (
-                  <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+                  <p className="mt-1 text-sm text-error-600">{errors.email.message}</p>
                 )}
               </div>
 
@@ -215,13 +211,11 @@ const Contact: React.FC = () => {
                       message: 'Please enter a valid phone number',
                     },
                   })}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
-                    errors.phone ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  className={errors.phone ? 'form-input-error' : 'form-input'}
                   placeholder="(555) 123-4567"
                 />
                 {errors.phone && (
-                  <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>
+                  <p className="mt-1 text-sm text-error-600">{errors.phone.message}</p>
                 )}
               </div>
 
@@ -232,7 +226,7 @@ const Contact: React.FC = () => {
                 <select
                   id="serviceInterest"
                   {...register('serviceInterest')}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                  className="form-input"
                 >
                   <option value="">Select a service (optional)</option>
                   <option value="career-transition">Career Transition Coaching</option>
@@ -261,27 +255,25 @@ const Contact: React.FC = () => {
                       message: 'Message must be less than 1000 characters',
                     },
                   })}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none ${
-                    errors.message ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  className={`${errors.message ? 'form-input-error' : 'form-input'} resize-none`}
                   placeholder="Tell me about your goals and how I can help you..."
                 />
                 {errors.message && (
-                  <p className="mt-1 text-sm text-red-600">{errors.message.message}</p>
+                  <p className="mt-1 text-sm text-error-600">{errors.message.message}</p>
                 )}
               </div>
 
               {/* Success Message */}
               {submissionState.isSuccess && (
-                <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+                <div className="p-4 bg-success-50 border border-success-200 rounded-lg">
                   <div className="flex">
                     <div className="flex-shrink-0">
-                      <svg className="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                      <svg className="h-5 w-5 text-success-400" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                       </svg>
                     </div>
                     <div className="ml-3">
-                      <p className="text-sm text-green-800">{submissionState.successMessage}</p>
+                      <p className="text-sm text-success-800">{submissionState.successMessage}</p>
                     </div>
                   </div>
                 </div>
@@ -289,15 +281,15 @@ const Contact: React.FC = () => {
 
               {/* Error Message */}
               {submissionState.isError && (
-                <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+                <div className="p-4 bg-error-50 border border-error-200 rounded-lg">
                   <div className="flex">
                     <div className="flex-shrink-0">
-                      <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                      <svg className="h-5 w-5 text-error-400" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                       </svg>
                     </div>
                     <div className="ml-3">
-                      <p className="text-sm text-red-800">{submissionState.errorMessage}</p>
+                      <p className="text-sm text-error-800">{submissionState.errorMessage}</p>
                     </div>
                   </div>
                 </div>
@@ -306,11 +298,11 @@ const Contact: React.FC = () => {
               <button
                 type="submit"
                 disabled={submissionState.isSubmitting}
-                className={`btn-touch w-full py-3 sm:py-4 px-6 rounded-lg font-medium transition-colors touch-manipulation ${
+                className={`w-full focus-visible ${
                   submissionState.isSubmitting
-                    ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-blue-600 hover:bg-blue-700 active:bg-blue-800 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
-                } text-white`}
+                    ? 'bg-gray-400 cursor-not-allowed text-white py-3 sm:py-4 px-6 rounded-lg font-medium transition-colors touch-manipulation btn-touch'
+                    : 'btn-primary'
+                }`}
               >
                 {submissionState.isSubmitting ? (
                   <Loading size="sm" text="Sending..." className="text-white" />

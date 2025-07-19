@@ -39,12 +39,17 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Skip link for screen readers */}
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+      
       <ErrorBoundary>
         <Header siteName="Life Coach" />
       </ErrorBoundary>
       
       {/* Main content with sections for navigation testing */}
-      <main className="pt-16 md:pt-20">
+      <main id="main-content" className="pt-16 md:pt-20">
         {/* Hero Section */}
         <ErrorBoundary>
           <Hero />

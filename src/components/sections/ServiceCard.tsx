@@ -21,13 +21,13 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, className = '' }) =>
   const getCategoryColor = (category?: string) => {
     switch (category) {
       case 'individual':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-secondary-100 text-secondary-800';
       case 'group':
-        return 'bg-green-100 text-green-800';
+        return 'bg-success-100 text-success-800';
       case 'workshop':
-        return 'bg-purple-100 text-purple-800';
+        return 'bg-primary-100 text-primary-800';
       case 'package':
-        return 'bg-orange-100 text-orange-800';
+        return 'bg-warning-100 text-warning-800';
       default:
         return 'bg-gray-100 text-gray-800';
     }
@@ -35,7 +35,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, className = '' }) =>
 
   return (
     <div 
-      className={`bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-4 sm:p-6 border border-gray-200 hover:border-blue-300 ${className}`}
+      className={`card-interactive p-4 sm:p-6 ${className}`}
       data-testid="service-card"
     >
       {/* Category Badge */}
@@ -61,7 +61,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, className = '' }) =>
       {/* Target Audience */}
       {targetAudience && (
         <p 
-          className="text-sm text-blue-600 mb-3 font-medium"
+          className="text-sm text-primary-600 mb-3 font-medium"
           data-testid="service-audience"
         >
           For: {targetAudience}
@@ -87,7 +87,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, className = '' }) =>
             {features.map((feature, index) => (
               <li key={index} className="flex items-start">
                 <svg 
-                  className="w-4 h-4 text-green-500 mt-0.5 mr-2 flex-shrink-0" 
+                  className="w-4 h-4 text-success-500 mt-0.5 mr-2 flex-shrink-0" 
                   fill="currentColor" 
                   viewBox="0 0 20 20"
                   aria-hidden="true"
@@ -117,7 +117,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, className = '' }) =>
         )}
         {price && (
           <span 
-            className="text-lg font-semibold text-blue-600"
+            className="text-lg font-semibold text-primary-600"
             data-testid="service-price"
           >
             {price}
@@ -127,7 +127,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, className = '' }) =>
 
       {/* Call to Action Button */}
       <button 
-        className="btn-touch w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 active:bg-blue-800 transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 touch-manipulation"
+        className="btn-primary w-full focus-visible"
         data-testid="service-cta"
         onClick={() => {
           // Scroll to contact section
