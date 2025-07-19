@@ -35,7 +35,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, className = '' }) =>
 
   return (
     <div 
-      className={`bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6 border border-gray-200 hover:border-blue-300 ${className}`}
+      className={`bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-4 sm:p-6 border border-gray-200 hover:border-blue-300 ${className}`}
       data-testid="service-card"
     >
       {/* Category Badge */}
@@ -127,7 +127,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, className = '' }) =>
 
       {/* Call to Action Button */}
       <button 
-        className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        className="btn-touch w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 active:bg-blue-800 transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 touch-manipulation"
         data-testid="service-cta"
         onClick={() => {
           // Scroll to contact section

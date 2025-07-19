@@ -43,12 +43,12 @@ const About: React.FC<AboutProps> = ({
         </div>
 
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           {/* Image Column */}
           <div className="flex justify-center lg:justify-start order-1 lg:order-1">
             <div className="relative">
               {/* Professional headshot */}
-              <div className="w-80 h-80 sm:w-96 sm:h-96 lg:w-[28rem] lg:h-[35rem] rounded-2xl bg-gradient-to-br from-teal-100 to-blue-100 flex items-center justify-center shadow-2xl overflow-hidden">
+              <div className="w-72 h-72 xs:w-80 xs:h-80 sm:w-96 sm:h-96 lg:w-[28rem] lg:h-[35rem] rounded-2xl bg-gradient-to-br from-teal-100 to-blue-100 flex items-center justify-center shadow-2xl overflow-hidden">
                 {profileImage ? (
                   <img 
                     src={profileImage} 
@@ -70,16 +70,16 @@ const About: React.FC<AboutProps> = ({
               </div>
               
               {/* Credentials Badge */}
-              <div className="absolute -bottom-4 -right-4 bg-white rounded-xl shadow-lg p-4 border border-gray-100">
+              <div className="absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 bg-white rounded-xl shadow-lg p-3 sm:p-4 border border-gray-100">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-teal-600 mb-1">{experience.split('+')[0]}+</div>
-                  <div className="text-sm text-gray-600 font-medium">Years Experience</div>
+                  <div className="text-xl sm:text-2xl font-bold text-teal-600 mb-1">{experience.split('+')[0]}+</div>
+                  <div className="text-xs sm:text-sm text-gray-600 font-medium">Years Experience</div>
                 </div>
               </div>
               
-              {/* Decorative elements */}
-              <div className="absolute -top-4 -left-4 w-8 h-8 bg-teal-400 rounded-full opacity-70"></div>
-              <div className="absolute top-1/4 -right-8 w-6 h-6 bg-blue-400 rounded-full opacity-60"></div>
+              {/* Decorative elements - hidden on very small screens */}
+              <div className="hidden xs:block absolute -top-4 -left-4 w-6 h-6 sm:w-8 sm:h-8 bg-teal-400 rounded-full opacity-70"></div>
+              <div className="hidden sm:block absolute top-1/4 -right-8 w-6 h-6 bg-blue-400 rounded-full opacity-60"></div>
             </div>
           </div>
 

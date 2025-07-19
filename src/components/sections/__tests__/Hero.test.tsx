@@ -9,6 +9,24 @@ Object.defineProperty(window.Element.prototype, 'scrollIntoView', {
   value: mockScrollIntoView,
 });
 
+// Mock getBoundingClientRect
+const mockGetBoundingClientRect = vi.fn(() => ({
+  top: 100,
+  left: 0,
+  bottom: 200,
+  right: 100,
+  width: 100,
+  height: 100,
+  x: 0,
+  y: 100,
+  toJSON: vi.fn(),
+}));
+
+Object.defineProperty(window.Element.prototype, 'getBoundingClientRect', {
+  writable: true,
+  value: mockGetBoundingClientRect,
+});
+
 // Mock getElementById
 const mockGetElementById = vi.fn();
 Object.defineProperty(document, 'getElementById', {
@@ -16,9 +34,33 @@ Object.defineProperty(document, 'getElementById', {
   value: mockGetElementById,
 });
 
+// Mock window.scrollTo
+const mockScrollTo = vi.fn();
+Object.defineProperty(window, 'scrollTo', {
+  writable: true,
+  value: mockScrollTo,
+});
+
+// Mock window.scrollY
+Object.defineProperty(window, 'scrollY', {
+  writable: true,
+  value: 0,
+});
+
 describe('Hero Component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    mockGetBoundingClientRect.mockReturnValue({
+      top: 100,
+      left: 0,
+      bottom: 200,
+      right: 100,
+      width: 100,
+      height: 100,
+      x: 0,
+      y: 100,
+      toJSON: vi.fn(),
+    });
   });
 
   describe('Rendering', () => {
@@ -89,7 +131,10 @@ describe('Hero Component', () => {
     });
 
     it('scrolls to contact section when no custom handler provided', () => {
-      const mockContactElement = { scrollIntoView: mockScrollIntoView };
+      const mockContactElement = { 
+        getBoundingClientRect: mockGetBoundingClientRect,
+        scrollIntoView: mockScrollIntoView 
+      };
       mockGetElementById.mockReturnValue(mockContactElement);
       
       render(<Hero />);
@@ -98,9 +143,9 @@ describe('Hero Component', () => {
       fireEvent.click(button);
       
       expect(mockGetElementById).toHaveBeenCalledWith('contact');
-      expect(mockScrollIntoView).toHaveBeenCalledWith({
-        behavior: 'smooth',
-        block: 'start'
+      expect(mockScrollTo).toHaveBeenCalledWith({
+        top: 80, // 100 (element top) + 0 (scrollY) - 20 (header offset)
+        behavior: 'smooth'
       });
     });
 
@@ -126,10 +171,10 @@ describe('Hero Component', () => {
       expect(section).toHaveClass('px-4', 'sm:px-6', 'lg:px-8');
       
       const mainHeading = screen.getByRole('heading', { level: 1 });
-      expect(mainHeading).toHaveClass('text-4xl', 'sm:text-5xl', 'lg:text-6xl');
+      expect(mainHeading).toHaveClass('text-3xl', 'xs:text-4xl', 'sm:text-5xl', 'lg:text-6xl');
       
       const subHeading = screen.getByRole('heading', { level: 2 });
-      expect(subHeading).toHaveClass('text-xl', 'sm:text-2xl', 'lg:text-3xl');
+      expect(subHeading).toHaveClass('text-lg', 'xs:text-xl', 'sm:text-2xl', 'lg:text-3xl');
     });
 
     it('has proper grid layout classes', () => {
@@ -148,7 +193,7 @@ describe('Hero Component', () => {
       const container = screen.getByRole('region');
       const headshotIcon = container.querySelector('svg.text-gray-400[aria-hidden="true"]');
       expect(headshotIcon).toBeInTheDocument();
-      expect(headshotIcon).toHaveClass('w-32', 'h-32', 'sm:w-40', 'sm:h-40', 'lg:w-48', 'lg:h-48');
+      expect(headshotIcon).toHaveClass('w-24', 'h-24', 'xs:w-28', 'xs:h-28', 'sm:w-32', 'sm:h-32', 'lg:w-48', 'lg:h-48');
     });
 
     it('has gradient backgrounds', () => {

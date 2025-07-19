@@ -141,10 +141,10 @@ describe('Services', () => {
     expect(servicesGrid).toHaveClass(
       'grid',
       'grid-cols-1',
-      'md:grid-cols-2',
+      'sm:grid-cols-2',
       'lg:grid-cols-2',
-      'xl:grid-cols-2',
-      'gap-8'
+      'gap-6',
+      'sm:gap-8'
     );
   });
 

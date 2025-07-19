@@ -163,34 +163,34 @@ const Testimonials: React.FC<TestimonialsProps> = ({
               {/* Previous/Next Buttons */}
               <button
                 onClick={goToPrevious}
-                className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-shadow duration-200 z-10"
+                className="btn-touch absolute left-2 sm:left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:shadow-xl active:shadow-md transition-shadow duration-200 z-10 touch-manipulation"
                 aria-label="Previous testimonial"
               >
-                <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
 
               <button
                 onClick={goToNext}
-                className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-shadow duration-200 z-10"
+                className="btn-touch absolute right-2 sm:right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:shadow-xl active:shadow-md transition-shadow duration-200 z-10 touch-manipulation"
                 aria-label="Next testimonial"
               >
-                <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </button>
 
               {/* Dot Indicators */}
-              <div className="flex justify-center mt-8 space-x-2">
+              <div className="flex justify-center mt-6 sm:mt-8 space-x-2">
                 {testimonials.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
-                    className={`w-3 h-3 rounded-full transition-colors duration-200 ${
+                    className={`btn-touch w-4 h-4 sm:w-3 sm:h-3 rounded-full transition-colors duration-200 touch-manipulation ${
                       index === currentIndex
                         ? 'bg-blue-600'
-                        : 'bg-gray-300 hover:bg-gray-400'
+                        : 'bg-gray-300 hover:bg-gray-400 active:bg-gray-500'
                     }`}
                     aria-label={`Go to testimonial ${index + 1}`}
                   />

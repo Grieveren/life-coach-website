@@ -110,7 +110,7 @@ const Services: React.FC<ServicesProps> = ({ className = '' }) => {
 
         {/* Services Grid */}
         <div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8"
           data-testid="services-grid"
         >
           {services && services.length > 0 ? (
@@ -143,7 +143,7 @@ const Services: React.FC<ServicesProps> = ({ className = '' }) => {
             Schedule a free 30-minute consultation to discuss your goals and find the perfect coaching solution for your unique situation.
           </p>
           <button 
-            className="bg-blue-600 text-white px-8 py-3 rounded-md hover:bg-blue-700 transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="btn-touch bg-blue-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-md hover:bg-blue-700 active:bg-blue-800 transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 touch-manipulation"
             data-testid="services-consultation-cta"
             onClick={() => {
               const contactSection = document.getElementById('contact');

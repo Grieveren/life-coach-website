@@ -171,9 +171,9 @@ describe('Blog', () => {
     const featuredGrid = screen.getByTestId('featured-articles-grid');
     expect(featuredGrid).toHaveClass('grid-cols-1', 'lg:grid-cols-2');
     
-    // Recent articles should use md:grid-cols-2 lg:grid-cols-3
+    // Recent articles should use sm:grid-cols-2 lg:grid-cols-3 (updated for mobile-first)
     const recentGrid = screen.getByTestId('recent-articles-grid');
-    expect(recentGrid).toHaveClass('grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3');
+    expect(recentGrid).toHaveClass('grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-3');
   });
 
   it('renders blog posts with excerpts', () => {

@@ -89,14 +89,14 @@ const Contact: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid-responsive-2col">
           {/* Contact Information */}
-          <div className="space-y-8">
+          <div className="space-responsive-y">
             <div>
-              <h3 className="text-2xl font-semibold text-gray-900 mb-6">
+              <h3 className="text-responsive-2xl font-semibold text-gray-900 mb-4 sm:mb-6">
                 Let's Connect
               </h3>
-              <p className="text-gray-600 mb-8">
+              <p className="text-responsive-base text-gray-600 mb-6 sm:mb-8">
                 I'm here to support you on your career transformation journey. Whether you're looking to make a career change, 
                 advance in your current role, or find better work-life balance, I'd love to hear from you.
               </p>
@@ -148,8 +148,8 @@ const Contact: React.FC = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-white rounded-2xl shadow-lg p-8">
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                   Full Name *
@@ -306,10 +306,10 @@ const Contact: React.FC = () => {
               <button
                 type="submit"
                 disabled={submissionState.isSubmitting}
-                className={`w-full py-3 px-6 rounded-lg font-medium transition-colors ${
+                className={`btn-touch w-full py-3 sm:py-4 px-6 rounded-lg font-medium transition-colors touch-manipulation ${
                   submissionState.isSubmitting
                     ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
+                    : 'bg-blue-600 hover:bg-blue-700 active:bg-blue-800 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
                 } text-white`}
               >
                 {submissionState.isSubmitting ? (

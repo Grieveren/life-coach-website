@@ -125,7 +125,7 @@ const Blog: React.FC<BlogProps> = ({ className = '' }) => {
               Featured Articles
             </h3>
             <div 
-              className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+              className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8"
               data-testid="featured-articles-grid"
             >
               {featuredPosts.map((post) => (
@@ -150,7 +150,7 @@ const Blog: React.FC<BlogProps> = ({ className = '' }) => {
               Recent Articles
             </h3>
             <div 
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
               data-testid="recent-articles-grid"
             >
               {regularPosts.map((post) => (
@@ -183,15 +183,15 @@ const Blog: React.FC<BlogProps> = ({ className = '' }) => {
             Get weekly career insights, success stories, and practical tips delivered straight to your inbox. 
             Join hundreds of women successfully navigating their career transitions.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 max-w-md mx-auto">
             <input
               type="email"
               placeholder="Enter your email address"
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="flex-1 px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
               data-testid="newsletter-email-input"
             />
             <button 
-              className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 whitespace-nowrap"
+              className="btn-touch bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 active:bg-blue-800 transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 whitespace-nowrap touch-manipulation"
               data-testid="newsletter-subscribe-button"
               onClick={() => {
                 // In a real app, this would handle newsletter subscription

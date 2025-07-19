@@ -129,7 +129,7 @@ const Header: React.FC<HeaderProps> = ({
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMenu}
-            className="md:hidden hamburger-button p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100 transition-colors"
+            className="md:hidden hamburger-button btn-touch p-3 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100 active:bg-gray-200 transition-colors touch-manipulation"
             aria-label="Toggle navigation menu"
             aria-expanded={isMenuOpen}
           >
@@ -162,7 +162,7 @@ const Header: React.FC<HeaderProps> = ({
               <button
                 key={item.id}
                 onClick={() => handleSmoothScroll(item.href)}
-                className="block w-full text-left px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-gray-50 font-medium transition-colors duration-200"
+                className="btn-touch block w-full text-left px-4 py-4 text-gray-700 hover:text-blue-600 hover:bg-gray-50 active:bg-gray-100 font-medium transition-colors duration-200 touch-manipulation"
               >
                 {item.label}
               </button>

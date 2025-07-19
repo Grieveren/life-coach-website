@@ -371,7 +371,7 @@ describe('Contact Component', () => {
       await user.click(screen.getByRole('button', { name: /send message/i }));
       
       await waitFor(() => {
-        expect(screen.getByText(/network error: please check your internet connection/i)).toBeInTheDocument();
+        expect(screen.getByText(/network error: please check your internet connection and try again/i)).toBeInTheDocument();
       });
     });
 
