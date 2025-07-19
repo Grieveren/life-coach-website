@@ -31,7 +31,9 @@ src/
 │   ├── common/
 │   │   ├── Header.tsx           # Navigation header with responsive menu
 │   │   ├── Footer.tsx           # Footer with business info and social links
-│   │   └── __tests__/           # Header and Footer component tests
+│   │   ├── ErrorBoundary.tsx    # Error boundary for graceful error handling
+│   │   ├── Loading.tsx          # Loading component for async operations
+│   │   └── __tests__/           # Component tests for common components
 │   └── sections/
 │       ├── About.tsx            # About section with bio and credentials
 │       ├── Blog.tsx             # Blog section with articles and newsletter
@@ -57,12 +59,13 @@ src/
 ## 🎨 Components Overview
 
 ### Core Sections
-- **Header**: Responsive navigation with mobile menu and dynamic smooth scrolling with section-specific header offsets (40px default, 10px for home/about sections, 30px for contact)
-- **Hero**: Professional introduction with call-to-action
+- **Header**: Responsive navigation with mobile menu and dynamic smooth scrolling with section-specific header offsets (40px default, 10px for home/about sections, 20px for contact)
+- **Hero**: Professional introduction with call-to-action and consistent scroll behavior aligned with Header component
 - **About**: Personal story, credentials, and professional background
 - **Services**: Coaching offerings with detailed service cards
 - **Testimonials**: Client success stories and feedback
 - **Blog**: Career insights, resources, and newsletter signup
+
 - **Contact**: Professional contact form with validation and EmailJS integration
   - Real-time form validation with React Hook Form
   - Comprehensive field validation (name, email, phone, message)
@@ -137,6 +140,7 @@ The project includes comprehensive unit tests for all components using Vitest an
 - Component rendering and structure
 - User interactions and event handling
 - Props validation and edge cases
+- Error boundary functionality and fallback UI
 - Accessibility and semantic HTML
 - Responsive behavior
 
@@ -163,9 +167,9 @@ The project follows a structured implementation plan with the following complete
 ✅ **Completed**:
 - Contact form with validation and email integration
 - Footer with additional information and links
+- Error handling and loading states with ErrorBoundary component
 
 🚧 **In Progress**:
-- Error handling and loading states
 - Mobile optimization enhancements
 
 📋 **Planned**:

@@ -356,4 +356,146 @@ describe('Contact Component', () => {
     expect(emailLabel).toBeInTheDocument();
     expect(messageLabel).toBeInTheDocument();
   });
+
+  describe('Error Handling', () => {
+    it('handles network errors with specific message', async () => {
+      const user = userEvent.setup();
+      mockEmailjs.send.mockRejectedValueOnce(new Error('network error occurred'));
+      
+      render(<Contact />);
+      
+      // Fill out and submit form
+      await user.type(screen.getByLabelText(/full name/i), 'John Doe');
+      await user.type(screen.getByLabelText(/email address/i), 'john@example.com');
+      await user.type(screen.getByLabelText(/message/i), 'Test message');
+      await user.click(screen.getByRole('button', { name: /send message/i }));
+      
+      await waitFor(() => {
+        expect(screen.getByText(/network error: please check your internet connection/i)).toBeInTheDocument();
+      });
+    });
+
+    it('handles timeout errors with specific message', async () => {
+      const user = userEvent.setup();
+      mockEmailjs.send.mockRejectedValueOnce(new Error('timeout occurred'));
+      
+      render(<Contact />);
+      
+      // Fill out and submit form
+      await user.type(screen.getByLabelText(/full name/i), 'John Doe');
+      await user.type(screen.getByLabelText(/email address/i), 'john@example.com');
+      await user.type(screen.getByLabelText(/message/i), 'Test message');
+      await user.click(screen.getByRole('button', { name: /send message/i }));
+      
+      await waitFor(() => {
+        expect(screen.getByText(/request timeout: the server took too long to respond/i)).toBeInTheDocument();
+      });
+    });
+
+    it('handles generic errors with default message', async () => {
+      const user = userEvent.setup();
+      mockEmailjs.send.mockRejectedValueOnce(new Error('Unknown error'));
+      
+      render(<Contact />);
+      
+      // Fill out and submit form
+      await user.type(screen.getByLabelText(/full name/i), 'John Doe');
+      await user.type(screen.getByLabelText(/email address/i), 'john@example.com');
+      await user.type(screen.getByLabelText(/message/i), 'Test message');
+      await user.click(screen.getByRole('button', { name: /send message/i }));
+      
+      await waitFor(() => {
+        expect(screen.getByText(/sorry, there was an error sending your message/i)).toBeInTheDocument();
+      });
+    });
+
+    it('handles non-Error objects thrown', async () => {
+      const user = userEvent.setup();
+      mockEmailjs.send.mockRejectedValueOnce('String error');
+      
+      render(<Contact />);
+      
+      // Fill out and submit form
+      await user.type(screen.getByLabelText(/full name/i), 'John Doe');
+      await user.type(screen.getByLabelText(/email address/i), 'john@example.com');
+      await user.type(screen.getByLabelText(/message/i), 'Test message');
+      await user.click(screen.getByRole('button', { name: /send message/i }));
+      
+      await waitFor(() => {
+        expect(screen.getByText(/sorry, there was an error sending your message/i)).toBeInTheDocument();
+      });
+    });
+
+    it('displays error message with proper styling and icon', async () => {
+      const user = userEvent.setup();
+      mockEmailjs.send.mockRejectedValueOnce(new Error('Test error'));
+      
+      render(<Contact />);
+      
+      // Fill out and submit form
+      await user.type(screen.getByLabelText(/full name/i), 'John Doe');
+      await user.type(screen.getByLabelText(/email address/i), 'john@example.com');
+      await user.type(screen.getByLabelText(/message/i), 'Test message');
+      await user.click(screen.getByRole('button', { name: /send message/i }));
+      
+      await waitFor(() => {
+        const errorContainer = screen.getByText(/sorry, there was an error/i).closest('.bg-red-50');
+        expect(errorContainer).toHaveClass('bg-red-50', 'border-red-200');
+        
+        // Check for error icon
+        const errorIcon = errorContainer?.querySelector('svg');
+        expect(errorIcon).toHaveClass('text-red-400');
+      });
+    });
+
+    it('displays success message with proper styling and icon', async () => {
+      const user = userEvent.setup();
+      mockEmailjs.send.mockResolvedValueOnce({ status: 200 });
+      
+      render(<Contact />);
+      
+      // Fill out and submit form
+      await user.type(screen.getByLabelText(/full name/i), 'John Doe');
+      await user.type(screen.getByLabelText(/email address/i), 'john@example.com');
+      await user.type(screen.getByLabelText(/message/i), 'Test message');
+      await user.click(screen.getByRole('button', { name: /send message/i }));
+      
+      await waitFor(() => {
+        const successContainer = screen.getByText(/thank you for your message/i).closest('.bg-green-50');
+        expect(successContainer).toHaveClass('bg-green-50', 'border-green-200');
+        
+        // Check for success icon
+        const successIcon = successContainer?.querySelector('svg');
+        expect(successIcon).toHaveClass('text-green-400');
+      });
+    });
+
+    it('clears previous error/success messages on new submission', async () => {
+      const user = userEvent.setup();
+      
+      render(<Contact />);
+      
+      // Fill out form
+      await user.type(screen.getByLabelText(/full name/i), 'John Doe');
+      await user.type(screen.getByLabelText(/email address/i), 'john@example.com');
+      await user.type(screen.getByLabelText(/message/i), 'Test message');
+      
+      // First submission - error
+      mockEmailjs.send.mockRejectedValueOnce(new Error('Test error'));
+      await user.click(screen.getByRole('button', { name: /send message/i }));
+      
+      await waitFor(() => {
+        expect(screen.getByText(/sorry, there was an error/i)).toBeInTheDocument();
+      });
+      
+      // Second submission - success
+      mockEmailjs.send.mockResolvedValueOnce({ status: 200 });
+      await user.click(screen.getByRole('button', { name: /send message/i }));
+      
+      await waitFor(() => {
+        expect(screen.queryByText(/sorry, there was an error/i)).not.toBeInTheDocument();
+        expect(screen.getByText(/thank you for your message/i)).toBeInTheDocument();
+      });
+    });
+  });
 });

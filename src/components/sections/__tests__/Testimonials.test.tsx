@@ -186,9 +186,11 @@ describe('Testimonials', () => {
     expect(ctaLink).toHaveAttribute('href', '#contact');
   });
 
-  it('renders nothing when no testimonials are provided', () => {
-    const { container } = render(<Testimonials testimonials={[]} />);
-    expect(container.firstChild).toBeNull();
+  it('renders fallback UI when no testimonials are provided', () => {
+    render(<Testimonials testimonials={[]} />);
+    expect(screen.getByText('Testimonials Coming Soon')).toBeInTheDocument();
+    expect(screen.getByText(/We're collecting success stories from our clients/)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /be our next success story/i })).toBeInTheDocument();
   });
 
   it('hides navigation controls when only one testimonial exists', () => {

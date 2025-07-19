@@ -1,5 +1,6 @@
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
+import ErrorBoundary from './components/common/ErrorBoundary';
 import Hero from './components/sections/Hero';
 import About from './components/sections/About';
 import Services from './components/sections/Services';
@@ -10,31 +11,47 @@ import Contact from './components/sections/Contact';
 function App() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header siteName="Life Coach" />
+      <ErrorBoundary>
+        <Header siteName="Life Coach" />
+      </ErrorBoundary>
       
       {/* Main content with sections for navigation testing */}
       <main className="pt-16 md:pt-20">
         {/* Hero Section */}
-        <Hero />
+        <ErrorBoundary>
+          <Hero />
+        </ErrorBoundary>
 
         {/* About Section */}
-        <About />
+        <ErrorBoundary>
+          <About />
+        </ErrorBoundary>
 
         {/* Services Section */}
-        <Services />
+        <ErrorBoundary>
+          <Services />
+        </ErrorBoundary>
 
         {/* Testimonials Section */}
-        <Testimonials />
+        <ErrorBoundary>
+          <Testimonials />
+        </ErrorBoundary>
 
         {/* Blog Section */}
-        <Blog />
+        <ErrorBoundary>
+          <Blog />
+        </ErrorBoundary>
 
         {/* Contact Section */}
-        <Contact />
+        <ErrorBoundary>
+          <Contact />
+        </ErrorBoundary>
       </main>
 
       {/* Footer */}
-      <Footer siteName="Andrea Grey Coaching" />
+      <ErrorBoundary>
+        <Footer siteName="Andrea Grey Coaching" />
+      </ErrorBoundary>
     </div>
   );
 }

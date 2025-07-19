@@ -86,7 +86,40 @@ const Testimonials: React.FC<TestimonialsProps> = ({
   };
 
   if (testimonials.length === 0) {
-    return null;
+    return (
+      <section className={`py-16 bg-gray-50 ${className}`} id="testimonials">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-4">
+              Client Success Stories
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              See how our coaching has helped women successfully transition back into their careers
+              with confidence and clarity.
+            </p>
+          </div>
+          
+          <div className="text-center py-12">
+            <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+              <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Testimonials Coming Soon</h3>
+            <p className="text-gray-600 mb-6">We're collecting success stories from our clients. Check back soon to see their inspiring journeys.</p>
+            <a
+              href="#contact"
+              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200"
+            >
+              Be Our Next Success Story
+              <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+    );
   }
 
   return (
