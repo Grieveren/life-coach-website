@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BlogPost } from '../../types';
+import { loadBlogPosts } from '../../utils/contentManager';
 import BlogCard from './BlogCard';
 
 interface BlogProps {
@@ -7,85 +8,27 @@ interface BlogProps {
 }
 
 const Blog: React.FC<BlogProps> = ({ className = '' }) => {
-  // Sample blog posts data - in a real app, this would come from props or a data source
-  const blogPosts: BlogPost[] = [
-    {
-      id: 'returning-to-work-after-maternity-leave',
-      title: 'Returning to Work After Maternity Leave: A Complete Guide',
-      excerpt: 'Navigate the transition back to work with confidence. Learn practical strategies for managing work-life balance, rebuilding professional relationships, and advancing your career after taking time off.',
-      content: '',
-      publishDate: new Date('2024-01-15'),
-      category: 'career-transition',
-      featured: true,
-      author: 'Sarah Johnson',
-      tags: ['maternity-leave', 'career-transition', 'work-life-balance', 'professional-development'],
-      readTime: 8,
-      status: 'published',
-      featuredImage: 'https://picsum.photos/600/300?random=1'
-    },
-    {
-      id: 'overcoming-imposter-syndrome',
-      title: 'Overcoming Imposter Syndrome: Reclaiming Your Professional Confidence',
-      excerpt: 'Discover proven techniques to overcome self-doubt and imposter syndrome. Build lasting confidence in your abilities and learn to celebrate your professional achievements.',
-      content: '',
-      publishDate: new Date('2024-01-10'),
-      category: 'personal-development',
-      author: 'Sarah Johnson',
-      tags: ['confidence', 'imposter-syndrome', 'mindset', 'professional-growth'],
-      readTime: 6,
-      status: 'published',
-      featuredImage: 'https://picsum.photos/600/300?random=2'
-    },
-    {
-      id: 'networking-strategies-for-career-changers',
-      title: 'Networking Strategies That Actually Work for Career Changers',
-      excerpt: 'Build meaningful professional connections even when changing careers. Learn authentic networking approaches that lead to real opportunities and lasting relationships.',
-      content: '',
-      publishDate: new Date('2024-01-05'),
-      category: 'tips-advice',
-      author: 'Sarah Johnson',
-      tags: ['networking', 'career-change', 'professional-relationships', 'job-search'],
-      readTime: 7,
-      status: 'published'
-    },
-    {
-      id: 'success-story-marketing-executive',
-      title: 'From Stay-at-Home Mom to Marketing Executive: Maria\'s Success Story',
-      excerpt: 'Read how Maria successfully transitioned back into marketing after a 5-year career break. Her journey from uncertainty to landing a senior marketing role in just 4 months.',
-      content: '',
-      publishDate: new Date('2023-12-28'),
-      category: 'success-stories',
-      author: 'Sarah Johnson',
-      tags: ['success-story', 'marketing', 'career-break', 'transformation'],
-      readTime: 5,
-      status: 'published',
-      featuredImage: 'https://picsum.photos/600/300?random=3'
-    },
-    {
-      id: 'work-life-balance-strategies',
-      title: '5 Work-Life Balance Strategies That Actually Work for Working Mothers',
-      excerpt: 'Practical, tested strategies for maintaining work-life balance as a working mother. Learn how to set boundaries, manage time effectively, and reduce overwhelm.',
-      content: '',
-      publishDate: new Date('2023-12-20'),
-      category: 'work-life-balance',
-      author: 'Sarah Johnson',
-      tags: ['work-life-balance', 'time-management', 'boundaries', 'working-mothers'],
-      readTime: 6,
-      status: 'published'
-    },
-    {
-      id: 'industry-trends-remote-work',
-      title: 'Remote Work Trends: What It Means for Career Returners',
-      excerpt: 'Explore how remote work trends are creating new opportunities for women returning to the workforce. Learn how to position yourself for remote and hybrid roles.',
-      content: '',
-      publishDate: new Date('2023-12-15'),
-      category: 'industry-insights',
-      author: 'Sarah Johnson',
-      tags: ['remote-work', 'industry-trends', 'career-opportunities', 'future-of-work'],
-      readTime: 9,
-      status: 'published'
-    }
-  ];
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchBlogPosts = async () => {
+      try {
+        setLoading(true);
+        const blogPostsData = await loadBlogPosts();
+        setBlogPosts(blogPostsData);
+        setError(null);
+      } catch (err) {
+        console.error('Failed to load blog posts:', err);
+        setError('Failed to load blog posts. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogPosts();
+  }, []);
 
   // Separate featured and regular posts
   const featuredPosts = blogPosts.filter(post => post.featured);
@@ -115,63 +58,94 @@ const Blog: React.FC<BlogProps> = ({ className = '' }) => {
           </p>
         </div>
 
-        {/* Featured Articles Section */}
-        {featuredPosts.length > 0 && (
-          <div className="mb-12">
-            <h3 
-              className="text-2xl font-semibold text-gray-900 mb-6"
-              data-testid="featured-articles-title"
-            >
-              Featured Articles
-            </h3>
-            <div 
-              className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8"
-              data-testid="featured-articles-grid"
-            >
-              {featuredPosts.map((post) => (
-                <BlogCard 
-                  key={post.id} 
-                  post={post}
-                  featured={true}
-                  className="h-full"
-                />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Regular Articles Section */}
-        {regularPosts.length > 0 ? (
-          <div>
-            <h3 
-              className="text-2xl font-semibold text-gray-900 mb-6"
-              data-testid="recent-articles-title"
-            >
-              Recent Articles
-            </h3>
-            <div 
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-              data-testid="recent-articles-grid"
-            >
-              {regularPosts.map((post) => (
-                <BlogCard 
-                  key={post.id} 
-                  post={post}
-                  className="h-full"
-                />
-              ))}
-            </div>
-          </div>
-        ) : featuredPosts.length === 0 && (
+        {/* Content Display */}
+        {loading ? (
           <div className="text-center py-12">
-            <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+            <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center animate-pulse">
               <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Articles Coming Soon</h3>
-            <p className="text-gray-600 mb-6">We're working on creating valuable content for your career journey. Check back soon for expert insights and practical advice.</p>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Loading Articles...</h3>
+            <p className="text-gray-600">Please wait while we load our latest content.</p>
           </div>
+        ) : error ? (
+          <div className="text-center py-12">
+            <div className="w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
+              <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Error Loading Articles</h3>
+            <p className="text-gray-600 mb-4">{error}</p>
+            <button 
+              onClick={() => window.location.reload()}
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200"
+            >
+              Try Again
+            </button>
+          </div>
+        ) : (
+          <>
+            {/* Featured Articles Section */}
+            {featuredPosts.length > 0 && (
+              <div className="mb-12">
+                <h3 
+                  className="text-2xl font-semibold text-gray-900 mb-6"
+                  data-testid="featured-articles-title"
+                >
+                  Featured Articles
+                </h3>
+                <div 
+                  className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8"
+                  data-testid="featured-articles-grid"
+                >
+                  {featuredPosts.map((post) => (
+                    <BlogCard 
+                      key={post.id} 
+                      post={post}
+                      featured={true}
+                      className="h-full"
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Regular Articles Section */}
+            {regularPosts.length > 0 ? (
+              <div>
+                <h3 
+                  className="text-2xl font-semibold text-gray-900 mb-6"
+                  data-testid="recent-articles-title"
+                >
+                  Recent Articles
+                </h3>
+                <div 
+                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+                  data-testid="recent-articles-grid"
+                >
+                  {regularPosts.map((post) => (
+                    <BlogCard 
+                      key={post.id} 
+                      post={post}
+                      className="h-full"
+                    />
+                  ))}
+                </div>
+              </div>
+            ) : featuredPosts.length === 0 && (
+              <div className="text-center py-12">
+                <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+                  <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Articles Coming Soon</h3>
+                <p className="text-gray-600 mb-6">We're working on creating valuable content for your career journey. Check back soon for expert insights and practical advice.</p>
+              </div>
+            )}
+          </>
         )}
 
         {/* Newsletter Signup CTA */}

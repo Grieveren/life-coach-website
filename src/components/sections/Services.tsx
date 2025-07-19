@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Service } from '../../types';
+import { loadServices } from '../../utils/contentManager';
 import ServiceCard from './ServiceCard';
 
 interface ServicesProps {
@@ -7,82 +8,27 @@ interface ServicesProps {
 }
 
 const Services: React.FC<ServicesProps> = ({ className = '' }) => {
-  // Sample services data - in a real app, this would come from props or a data source
-  const services: Service[] = [
-    {
-      id: 'career-transition-coaching',
-      title: 'Career Transition Coaching',
-      description: 'Personalized one-on-one coaching to help you navigate your return to the workforce with confidence and clarity.',
-      features: [
-        'Resume and LinkedIn profile optimization',
-        'Interview preparation and practice',
-        'Career goal setting and planning',
-        'Confidence building exercises',
-        'Networking strategies',
-        'Work-life balance planning'
-      ],
-      duration: '3 months',
-      price: 'Starting at $297/month',
-      category: 'individual',
-      targetAudience: 'Women returning to work after childbirth',
-      callToAction: 'Start Your Journey'
-    },
-    {
-      id: 'group-coaching-program',
-      title: 'Return to Work Group Program',
-      description: 'Join a supportive community of women navigating similar career transitions in a structured group coaching environment.',
-      features: [
-        'Weekly group coaching sessions',
-        'Peer support and networking',
-        'Shared resources and templates',
-        'Guest expert presentations',
-        'Accountability partnerships',
-        'Private online community access'
-      ],
-      duration: '8 weeks',
-      price: '$197/month',
-      category: 'group',
-      targetAudience: 'Women ready to return to work',
-      callToAction: 'Join the Community'
-    },
-    {
-      id: 'confidence-building-workshop',
-      title: 'Confidence Building Workshop',
-      description: 'Intensive workshop focused on rebuilding professional confidence and overcoming imposter syndrome.',
-      features: [
-        'Interactive confidence-building exercises',
-        'Mindset transformation techniques',
-        'Public speaking practice',
-        'Personal branding workshop',
-        'Networking skills development',
-        'Take-home action plan'
-      ],
-      duration: '1 day intensive',
-      price: '$147',
-      category: 'workshop',
-      targetAudience: 'Women lacking professional confidence',
-      callToAction: 'Book Workshop'
-    },
-    {
-      id: 'complete-transformation-package',
-      title: 'Complete Career Transformation',
-      description: 'Comprehensive 6-month program combining individual coaching, group support, and specialized workshops.',
-      features: [
-        'Monthly 1-on-1 coaching sessions',
-        'Access to all group programs',
-        'Priority workshop enrollment',
-        'Resume and LinkedIn makeover',
-        'Interview coaching sessions',
-        'Ongoing email support',
-        '6-month success guarantee'
-      ],
-      duration: '6 months',
-      price: '$1,497 (Save $500)',
-      category: 'package',
-      targetAudience: 'Women committed to career transformation',
-      callToAction: 'Transform Your Career'
-    }
-  ];
+  const [services, setServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        setLoading(true);
+        const servicesData = await loadServices();
+        setServices(servicesData);
+        setError(null);
+      } catch (err) {
+        console.error('Failed to load services:', err);
+        setError('Failed to load services. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchServices();
+  }, []);
 
   return (
     <section 
@@ -113,7 +59,33 @@ const Services: React.FC<ServicesProps> = ({ className = '' }) => {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8"
           data-testid="services-grid"
         >
-          {services && services.length > 0 ? (
+          {loading ? (
+            <div className="col-span-full text-center py-12">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center animate-pulse">
+                <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">Loading Services...</h3>
+              <p className="text-gray-600">Please wait while we load our service offerings.</p>
+            </div>
+          ) : error ? (
+            <div className="col-span-full text-center py-12">
+              <div className="w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">Error Loading Services</h3>
+              <p className="text-gray-600 mb-4">{error}</p>
+              <button 
+                onClick={() => window.location.reload()}
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200"
+              >
+                Try Again
+              </button>
+            </div>
+          ) : services && services.length > 0 ? (
             services.map((service) => (
               <ServiceCard 
                 key={service.id} 

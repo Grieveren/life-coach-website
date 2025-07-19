@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Testimonial } from '../../types';
+import { loadTestimonials } from '../../utils/contentManager';
 import TestimonialCard from './TestimonialCard';
 
 interface TestimonialsProps {
@@ -10,50 +11,39 @@ interface TestimonialsProps {
   className?: string;
 }
 
-// Sample testimonials data
-const defaultTestimonials: Testimonial[] = [
-  {
-    id: '1',
-    clientName: 'Sarah Johnson',
-    content: 'Working with this coach completely transformed my approach to returning to work. I felt confident and prepared for my career transition after taking time off for my children.',
-    outcome: 'Successfully landed a senior marketing role within 3 months',
-    rating: 5,
-    clientTitle: 'Marketing Manager',
-    location: 'Austin, TX',
-    serviceUsed: 'Career Transition Coaching Package',
-    featured: true
-  },
-  {
-    id: '2',
-    clientName: 'Maria Rodriguez',
-    content: 'The personalized coaching sessions helped me identify my strengths and build a strategy for re-entering the workforce. I never thought I could feel this empowered about my career.',
-    outcome: 'Increased confidence and secured flexible remote position',
-    rating: 5,
-    clientTitle: 'Project Coordinator',
-    location: 'Denver, CO',
-    serviceUsed: 'Individual Coaching Sessions'
-  },
-  {
-    id: '3',
-    clientName: 'Jennifer Chen',
-    content: 'After 5 years away from my career, I was overwhelmed about where to start. The coaching program gave me a clear roadmap and the support I needed to take action.',
-    outcome: 'Launched successful freelance consulting business',
-    rating: 5,
-    clientTitle: 'Business Consultant',
-    location: 'Seattle, WA',
-    serviceUsed: 'Entrepreneurship Coaching'
-  }
-];
-
 const Testimonials: React.FC<TestimonialsProps> = ({
-  testimonials = defaultTestimonials,
+  testimonials: propTestimonials,
   autoRotate = true,
   rotationInterval = 5000,
   showNavigation = true,
   className = ''
 }) => {
+  const [testimonials, setTestimonials] = useState<Testimonial[]>(propTestimonials || []);
+  const [loading, setLoading] = useState(!propTestimonials);
+  const [error, setError] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoRotating, setIsAutoRotating] = useState(autoRotate);
+
+  // Load testimonials if not provided as props
+  useEffect(() => {
+    if (!propTestimonials) {
+      const fetchTestimonials = async () => {
+        try {
+          setLoading(true);
+          const testimonialsData = await loadTestimonials();
+          setTestimonials(testimonialsData);
+          setError(null);
+        } catch (err) {
+          console.error('Failed to load testimonials:', err);
+          setError('Failed to load testimonials. Please try again later.');
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchTestimonials();
+    }
+  }, [propTestimonials]);
 
   // Auto-rotation effect
   useEffect(() => {
@@ -84,6 +74,68 @@ const Testimonials: React.FC<TestimonialsProps> = ({
     setCurrentIndex(newIndex);
     setIsAutoRotating(false);
   };
+
+  if (loading) {
+    return (
+      <section className={`py-16 bg-gray-50 ${className}`} id="testimonials">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-4">
+              Client Success Stories
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              See how our coaching has helped women successfully transition back into their careers
+              with confidence and clarity.
+            </p>
+          </div>
+          
+          <div className="text-center py-12">
+            <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center animate-pulse">
+              <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Loading Success Stories...</h3>
+            <p className="text-gray-600">Please wait while we load client testimonials.</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className={`py-16 bg-gray-50 ${className}`} id="testimonials">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-4">
+              Client Success Stories
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              See how our coaching has helped women successfully transition back into their careers
+              with confidence and clarity.
+            </p>
+          </div>
+          
+          <div className="text-center py-12">
+            <div className="w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
+              <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Error Loading Testimonials</h3>
+            <p className="text-gray-600 mb-4">{error}</p>
+            <button 
+              onClick={() => window.location.reload()}
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200"
+            >
+              Try Again
+            </button>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   if (testimonials.length === 0) {
     return (

@@ -1,0 +1,79 @@
+[
+  {
+    "id": "career-transition-coaching",
+    "title": "Career Transition Coaching",
+    "description": "Personalized one-on-one coaching to help you navigate your return to the workforce with confidence and clarity.",
+    "features": [
+      "Resume and LinkedIn profile optimization",
+      "Interview preparation and practice",
+      "Career goal setting and planning",
+      "Confidence building exercises",
+      "Networking strategies",
+      "Work-life balance planning"
+    ],
+    "duration": "3 months",
+    "price": "Starting at $297/month",
+    "category": "individual",
+    "targetAudience": "Women returning to work after childbirth",
+    "callToAction": "Start Your Journey",
+    "availability": true
+  },
+  {
+    "id": "group-coaching-program",
+    "title": "Return to Work Group Program",
+    "description": "Join a supportive community of women navigating similar career transitions in a structured group coaching environment.",
+    "features": [
+      "Weekly group coaching sessions",
+      "Peer support and networking",
+      "Shared resources and templates",
+      "Guest expert presentations",
+      "Accountability partnerships",
+      "Private online community access"
+    ],
+    "duration": "8 weeks",
+    "price": "$197/month",
+    "category": "group",
+    "targetAudience": "Women ready to return to work",
+    "callToAction": "Join the Community",
+    "availability": true
+  },
+  {
+    "id": "confidence-building-workshop",
+    "title": "Confidence Building Workshop",
+    "description": "Intensive workshop focused on rebuilding professional confidence and overcoming imposter syndrome.",
+    "features": [
+      "Interactive confidence-building exercises",
+      "Mindset transformation techniques",
+      "Public speaking practice",
+      "Personal branding workshop",
+      "Networking skills development",
+      "Take-home action plan"
+    ],
+    "duration": "1 day intensive",
+    "price": "$147",
+    "category": "workshop",
+    "targetAudience": "Women lacking professional confidence",
+    "callToAction": "Book Workshop",
+    "availability": true
+  },
+  {
+    "id": "complete-transformation-package",
+    "title": "Complete Career Transformation",
+    "description": "Comprehensive 6-month program combining individual coaching, group support, and specialized workshops.",
+    "features": [
+      "Monthly 1-on-1 coaching sessions",
+      "Access to all group programs",
+      "Priority workshop enrollment",
+      "Resume and LinkedIn makeover",
+      "Interview coaching sessions",
+      "Ongoing email support",
+      "6-month success guarantee"
+    ],
+    "duration": "6 months",
+    "price": "$1,497 (Save $500)",
+    "category": "package",
+    "targetAudience": "Women committed to career transformation",
+    "callToAction": "Transform Your Career",
+    "availability": true
+  }
+]

@@ -1,0 +1,108 @@
+[
+  {
+    "id": "returning-to-work-after-maternity-leave",
+    "title": "Returning to Work After Maternity Leave: A Complete Guide",
+    "excerpt": "Navigate the transition back to work with confidence. Learn practical strategies for managing work-life balance, rebuilding professional relationships, and advancing your career after taking time off.",
+    "content": "",
+    "publishDate": "2024-01-15T00:00:00.000Z",
+    "category": "career-transition",
+    "featured": true,
+    "author": "Sarah Johnson",
+    "tags": [
+      "maternity-leave",
+      "career-transition",
+      "work-life-balance",
+      "professional-development"
+    ],
+    "readTime": 8,
+    "status": "published",
+    "featuredImage": "https://picsum.photos/600/300?random=1"
+  },
+  {
+    "id": "overcoming-imposter-syndrome",
+    "title": "Overcoming Imposter Syndrome: Reclaiming Your Professional Confidence",
+    "excerpt": "Discover proven techniques to overcome self-doubt and imposter syndrome. Build lasting confidence in your abilities and learn to celebrate your professional achievements.",
+    "content": "",
+    "publishDate": "2024-01-10T00:00:00.000Z",
+    "category": "personal-development",
+    "author": "Sarah Johnson",
+    "tags": [
+      "confidence",
+      "imposter-syndrome",
+      "mindset",
+      "professional-growth"
+    ],
+    "readTime": 6,
+    "status": "published",
+    "featuredImage": "https://picsum.photos/600/300?random=2"
+  },
+  {
+    "id": "networking-strategies-for-career-changers",
+    "title": "Networking Strategies That Actually Work for Career Changers",
+    "excerpt": "Build meaningful professional connections even when changing careers. Learn authentic networking approaches that lead to real opportunities and lasting relationships.",
+    "content": "",
+    "publishDate": "2024-01-05T00:00:00.000Z",
+    "category": "tips-advice",
+    "author": "Sarah Johnson",
+    "tags": [
+      "networking",
+      "career-change",
+      "professional-relationships",
+      "job-search"
+    ],
+    "readTime": 7,
+    "status": "published"
+  },
+  {
+    "id": "success-story-marketing-executive",
+    "title": "From Stay-at-Home Mom to Marketing Executive: Maria's Success Story",
+    "excerpt": "Read how Maria successfully transitioned back into marketing after a 5-year career break. Her journey from uncertainty to landing a senior marketing role in just 4 months.",
+    "content": "",
+    "publishDate": "2023-12-28T00:00:00.000Z",
+    "category": "success-stories",
+    "author": "Sarah Johnson",
+    "tags": [
+      "success-story",
+      "marketing",
+      "career-break",
+      "transformation"
+    ],
+    "readTime": 5,
+    "status": "published",
+    "featuredImage": "https://picsum.photos/600/300?random=3"
+  },
+  {
+    "id": "work-life-balance-strategies",
+    "title": "5 Work-Life Balance Strategies That Actually Work for Working Mothers",
+    "excerpt": "Practical, tested strategies for maintaining work-life balance as a working mother. Learn how to set boundaries, manage time effectively, and reduce overwhelm.",
+    "content": "",
+    "publishDate": "2023-12-20T00:00:00.000Z",
+    "category": "work-life-balance",
+    "author": "Sarah Johnson",
+    "tags": [
+      "work-life-balance",
+      "time-management",
+      "boundaries",
+      "working-mothers"
+    ],
+    "readTime": 6,
+    "status": "published"
+  },
+  {
+    "id": "industry-trends-remote-work",
+    "title": "Remote Work Trends: What It Means for Career Returners",
+    "excerpt": "Explore how remote work trends are creating new opportunities for women returning to the workforce. Learn how to position yourself for remote and hybrid roles.",
+    "content": "",
+    "publishDate": "2023-12-15T00:00:00.000Z",
+    "category": "industry-insights",
+    "author": "Sarah Johnson",
+    "tags": [
+      "remote-work",
+      "industry-trends",
+      "career-opportunities",
+      "future-of-work"
+    ],
+    "readTime": 9,
+    "status": "published"
+  }
+]

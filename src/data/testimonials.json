@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "clientName": "Sarah Johnson",
+    "content": "Working with this coach completely transformed my approach to returning to work. I felt confident and prepared for my career transition after taking time off for my children.",
+    "outcome": "Successfully landed a senior marketing role within 3 months",
+    "rating": 5,
+    "clientTitle": "Marketing Manager",
+    "location": "Austin, TX",
+    "serviceUsed": "Career Transition Coaching Package",
+    "featured": true,
+    "dateGiven": "2024-01-15T00:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "clientName": "Maria Rodriguez",
+    "content": "The personalized coaching sessions helped me identify my strengths and build a strategy for re-entering the workforce. I never thought I could feel this empowered about my career.",
+    "outcome": "Increased confidence and secured flexible remote position",
+    "rating": 5,
+    "clientTitle": "Project Coordinator",
+    "location": "Denver, CO",
+    "serviceUsed": "Individual Coaching Sessions",
+    "featured": false,
+    "dateGiven": "2024-01-10T00:00:00.000Z"
+  },
+  {
+    "id": "3",
+    "clientName": "Jennifer Chen",
+    "content": "After 5 years away from my career, I was overwhelmed about where to start. The coaching program gave me a clear roadmap and the support I needed to take action.",
+    "outcome": "Launched successful freelance consulting business",
+    "rating": 5,
+    "clientTitle": "Business Consultant",
+    "location": "Seattle, WA",
+    "serviceUsed": "Entrepreneurship Coaching",
+    "featured": false,
+    "dateGiven": "2024-01-05T00:00:00.000Z"
+  }
+]

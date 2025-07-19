@@ -141,7 +141,7 @@ npm run dev
 
 ## 🧪 Testing
 
-The project includes comprehensive unit tests for all components using Vitest and Testing Library. Tests cover:
+The project includes comprehensive unit and integration tests using Vitest and Testing Library. Tests cover:
 
 - Component rendering and structure
 - User interactions and event handling
@@ -152,6 +152,7 @@ The project includes comprehensive unit tests for all components using Vitest an
 - Responsive behavior across breakpoints
 - EmailJS integration and error handling
 - Loading states and user feedback
+- **Content Management Integration**: Full integration tests for JSON-based content loading and validation
 
 ### Test Coverage Highlights
 
@@ -173,6 +174,13 @@ The project includes comprehensive unit tests for all components using Vitest an
 - Touch device detection
 - Component responsive behavior across screen sizes
 - Touch-friendly interaction validation
+
+**Content Management Integration Testing**:
+- JSON content file loading and parsing
+- Data structure validation for services, testimonials, blog posts, and site config
+- Content integrity checks and error handling
+- Asynchronous content loading workflows
+- Type safety validation for all content models
 
 Run tests with:
 ```bash
