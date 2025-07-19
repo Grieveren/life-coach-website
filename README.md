@@ -7,6 +7,7 @@ A modern, responsive React website for a professional life coach, built with Typ
 - **Responsive Design**: Mobile-first approach with custom breakpoints and touch-optimized interactions
 - **Modern React**: Built with React 18 and TypeScript for type safety
 - **Component Architecture**: Modular, reusable components with comprehensive testing
+- **Performance Optimization**: Lazy loading utilities, image optimization, and performance monitoring
 - **Blog System**: Dynamic blog section with featured articles and categories
 - **Professional Sections**: Hero, About, Services, Testimonials, and Blog sections
 - **Form Integration**: Contact forms with React Hook Form and EmailJS integration
@@ -49,7 +50,10 @@ src/
 ├── assets/
 │   └── images/                  # Image assets
 ├── utils/
-│   └── responsive.ts            # Responsive design utilities and breakpoint detection
+│   ├── lazyLoading.ts           # Lazy loading utilities and performance optimization
+│   ├── performance.ts           # Performance monitoring and optimization utilities
+│   ├── responsive.ts            # Responsive design utilities and breakpoint detection
+│   └── __tests__/               # Utility function tests
 ├── test/
 │   └── setup.ts                 # Test configuration
 ├── App.tsx                      # Main application component

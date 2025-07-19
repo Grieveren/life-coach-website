@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 interface LoadingProps {
   size?: 'sm' | 'md' | 'lg';
   text?: string;
   className?: string;
+  inline?: boolean;
+  fullScreen?: boolean;
 }
 
-const Loading: React.FC<LoadingProps> = ({ 
+const Loading: React.FC<LoadingProps> = memo(({ 
   size = 'md', 
   text = 'Loading...', 
-  className = '' 
+  className = '',
+  inline = false,
+  fullScreen = false
 }) => {
   const sizeClasses = {
     sm: 'w-4 h-4',
@@ -23,13 +27,20 @@ const Loading: React.FC<LoadingProps> = ({
     lg: 'text-lg'
   };
 
+  const containerClasses = fullScreen
+    ? 'fixed inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50'
+    : inline
+    ? `inline-flex items-center space-x-2 ${className}`
+    : `flex items-center justify-center space-x-2 ${className}`;
+
   return (
-    <div className={`flex items-center justify-center space-x-2 ${className}`}>
+    <div className={containerClasses} role="status" aria-live="polite">
       <svg 
-        className={`animate-spin ${sizeClasses[size]} text-blue-600`} 
+        className={`animate-spin ${sizeClasses[size]} text-teal-600`} 
         xmlns="http://www.w3.org/2000/svg" 
         fill="none" 
         viewBox="0 0 24 24"
+        aria-hidden="true"
       >
         <circle 
           className="opacity-25" 
@@ -46,12 +57,14 @@ const Loading: React.FC<LoadingProps> = ({
         />
       </svg>
       {text && (
-        <span className={`text-gray-600 ${textSizeClasses[size]}`}>
+        <span className={`text-gray-600 ${textSizeClasses[size]}`} aria-label={text}>
           {text}
         </span>
       )}
     </div>
   );
-};
+});
+
+Loading.displayName = 'Loading';
 
 export default Loading;

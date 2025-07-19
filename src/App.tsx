@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import ErrorBoundary from './components/common/ErrorBoundary';
@@ -7,8 +8,35 @@ import Services from './components/sections/Services';
 import Testimonials from './components/sections/Testimonials';
 import Blog from './components/sections/Blog';
 import Contact from './components/sections/Contact';
+import { performanceMonitor, bundleOptimization } from './utils/performance';
+import { usePerformanceMonitor } from './utils/performance';
 
 function App() {
+  const { logRenderTime } = usePerformanceMonitor('App');
+
+  useEffect(() => {
+    // Log initial render time
+    logRenderTime();
+
+    // Preload critical resources
+    bundleOptimization.preloadResource('/fonts/inter.woff2', 'font', 'font/woff2');
+    
+    // Log page load performance
+    if (typeof window !== 'undefined') {
+      window.addEventListener('load', () => {
+        performanceMonitor.logMetric('Page Load Complete', performance.now());
+      });
+    }
+
+    // Prefetch resources that might be needed later
+    bundleOptimization.prefetchResource('/api/contact');
+    
+    return () => {
+      // Cleanup performance monitoring
+      performanceMonitor.cleanup();
+    };
+  }, [logRenderTime]);
+
   return (
     <div className="min-h-screen bg-gray-50">
       <ErrorBoundary>

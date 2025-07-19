@@ -99,7 +99,7 @@ export const debounce = <T extends (...args: any[]) => any>(
   func: T,
   wait: number
 ): ((...args: Parameters<T>) => void) => {
-  let timeout: NodeJS.Timeout;
+  let timeout: ReturnType<typeof setTimeout>;
   
   return (...args: Parameters<T>) => {
     clearTimeout(timeout);
@@ -128,4 +128,106 @@ export const useResponsive = () => {
     isDesktop: isDesktop(),
     isTouchDevice: isTouchDevice(),
   };
+};/**
+ * Per
+formance-optimized responsive utilities
+ */
+
+/**
+ * Performance-optimized media query hook
+ */
+export const useMediaQuery = (query: string): boolean => {
+  if (typeof window === 'undefined') return false;
+
+  const mediaQuery = window.matchMedia(query);
+  return mediaQuery.matches;
 };
+
+/**
+ * Optimized viewport detection with performance monitoring
+ */
+export const getViewportInfo = () => {
+  if (typeof window === 'undefined') {
+    return {
+      width: 1024,
+      height: 768,
+      devicePixelRatio: 1,
+      isMobile: false,
+      isTablet: false,
+      isDesktop: true,
+    };
+  }
+
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  const devicePixelRatio = window.devicePixelRatio || 1;
+
+  return {
+    width,
+    height,
+    devicePixelRatio,
+    isMobile: width < BREAKPOINTS.md,
+    isTablet: width >= BREAKPOINTS.md && width < BREAKPOINTS.lg,
+    isDesktop: width >= BREAKPOINTS.lg,
+  };
+};
+
+/**
+ * Performance-optimized resize observer
+ */
+export class ResponsiveObserver {
+  private callbacks: Set<() => void> = new Set();
+  private isObserving = false;
+
+  addCallback(callback: () => void) {
+    this.callbacks.add(callback);
+    this.startObserving();
+  }
+
+  removeCallback(callback: () => void) {
+    this.callbacks.delete(callback);
+    if (this.callbacks.size === 0) {
+      this.stopObserving();
+    }
+  }
+
+  private startObserving() {
+    if (this.isObserving || typeof window === 'undefined') return;
+
+    this.isObserving = true;
+    window.addEventListener('resize', this.handleResize);
+    window.addEventListener('orientationchange', this.handleResize);
+  }
+
+  private stopObserving() {
+    if (!this.isObserving || typeof window === 'undefined') return;
+
+    this.isObserving = false;
+    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener('orientationchange', this.handleResize);
+  }
+
+  private handleResize = () => {
+    const debouncedCallback = debounce(() => {
+      this.callbacks.forEach(callback => callback());
+    }, 150);
+    debouncedCallback();
+  };
+
+  cleanup() {
+    this.callbacks.clear();
+    this.stopObserving();
+  }
+}
+
+// Singleton instance
+export const responsiveObserver = new ResponsiveObserver();
+
+/**
+ * Cleanup on page unload
+ */
+if (typeof window !== 'undefined') {
+  window.addEventListener('beforeunload', () => {
+    responsiveObserver.cleanup();
+  });
+}
