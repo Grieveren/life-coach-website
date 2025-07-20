@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Auto Commit & Push",
+  "description": "Automatically commits and pushes changes to git repository after any file is modified",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "**/*"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A file has been changed. Please commit all changes with an appropriate commit message and push to the remote repository. Use git add ., git commit with a descriptive message based on the changes, and git push."
+  }
+}

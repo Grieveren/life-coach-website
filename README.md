@@ -22,7 +22,7 @@ A modern, responsive React website for a professional life coach, built with Typ
 - **Email**: EmailJS Browser
 - **Testing**: Vitest, Testing Library, jsdom
 - **Code Quality**: ESLint, Prettier
-- **Build Tool**: Vite with TypeScript support
+- **Build Tool**: Vite with advanced optimization and Terser compression
 
 ## 📁 Project Structure
 
@@ -264,6 +264,15 @@ The project uses a custom Tailwind configuration with:
 - **Custom Spacing**: Additional spacing utilities (18, 88) and `screen-small` min-height
 - **Inter Font Family**: Professional typography with system fallbacks
 
+### Vite Build Configuration
+Advanced build optimization with:
+- **Multi-pass Terser compression** with console.log removal in production
+- **Enhanced tree shaking** with module side-effects optimization
+- **Smart asset management** with 4KB inlining threshold
+- **Modern browser targeting** (ES2015+, Chrome 58+, Firefox 57+, Safari 11+)
+- **CSS code splitting** and dedicated minification
+- **Compressed file size reporting** for build analysis
+
 ### TypeScript
 Strict TypeScript configuration with:
 - Type checking for all components
@@ -275,6 +284,24 @@ Vitest configuration with:
 - jsdom environment for DOM testing
 - Testing Library utilities
 - Custom test setup and matchers
+
+## ⚡ Performance & Build Optimization
+
+The project features advanced build optimizations for production:
+
+### Build Features
+- **Multi-pass Terser compression** removes console.log statements and comments in production
+- **Enhanced tree shaking** eliminates dead code with module side-effects optimization
+- **Smart asset inlining** for files under 4KB to reduce HTTP requests
+- **Modern browser targeting** (ES2015+) for optimal code generation
+- **CSS code splitting** and dedicated minification for faster loading
+- **Compressed file size reporting** for build analysis and optimization
+
+### Performance Benefits
+- Significantly reduced bundle sizes through aggressive optimization
+- Faster loading times with optimized asset management
+- Better caching with content-based file hashing
+- Improved runtime performance with modern JavaScript targeting
 
 ## 🚀 Deployment
 
