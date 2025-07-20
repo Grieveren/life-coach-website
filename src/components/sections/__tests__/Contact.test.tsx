@@ -11,7 +11,7 @@ vi.mock('@emailjs/browser', () => ({
   },
 }));
 
-const mockEmailjs = emailjs as any;
+const mockEmailjs = emailjs as { send: ReturnType<typeof vi.fn> };
 
 describe('Contact Component', () => {
   beforeEach(() => {
@@ -159,7 +159,7 @@ describe('Contact Component', () => {
   it('submits form successfully with valid data', async () => {
     const user = userEvent.setup();
     // Mock a delayed response to test loading state
-    let resolvePromise: (value: any) => void;
+    let resolvePromise: (value: unknown) => void;
     const delayedPromise = new Promise((resolve) => {
       resolvePromise = resolve;
     });

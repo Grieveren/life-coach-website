@@ -207,7 +207,7 @@ const Contact: React.FC = () => {
                   id="phone"
                   {...register('phone', {
                     pattern: {
-                      value: /^[\+]?[1-9][\d]{0,15}$/,
+                      value: /^[+]?[1-9][\d]{0,15}$/,
                       message: 'Please enter a valid phone number',
                     },
                   })}

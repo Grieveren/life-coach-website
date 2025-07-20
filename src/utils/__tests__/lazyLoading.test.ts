@@ -63,7 +63,7 @@ describe('Lazy Loading Utilities', () => {
         threshold: 0.5,
       };
       
-      const observer = useIntersectionObserver(callback, customOptions);
+      useIntersectionObserver(callback, customOptions);
       
       expect(mockIntersectionObserver).toHaveBeenCalledWith(callback, customOptions);
     });
@@ -88,7 +88,7 @@ describe('Lazy Loading Utilities', () => {
         type: '',
       };
       
-      vi.spyOn(document, 'createElement').mockReturnValue(mockLink as any);
+      vi.spyOn(document, 'createElement').mockReturnValue(mockLink as HTMLLinkElement);
       
       performanceUtils.preloadResource('/test.css', 'style', 'text/css');
       
@@ -106,7 +106,7 @@ describe('Lazy Loading Utilities', () => {
         href: '',
       };
       
-      vi.spyOn(document, 'createElement').mockReturnValue(mockLink as any);
+      vi.spyOn(document, 'createElement').mockReturnValue(mockLink as HTMLLinkElement);
       
       performanceUtils.prefetchResource('/next-page.js');
       

@@ -7,8 +7,7 @@ import {
   isTablet, 
   isDesktop, 
   isTouchDevice,
-  getResponsiveImageSizes,
-  BREAKPOINTS 
+  getResponsiveImageSizes
 } from '../../utils/responsive';
 import Hero from '../sections/Hero';
 import Header from '../common/Header';
@@ -113,7 +112,7 @@ describe('Responsive Design Utilities', () => {
 
     it('should detect touch devices when maxTouchPoints > 0', () => {
       // Remove ontouchstart
-      delete (window as any).ontouchstart;
+      delete (window as unknown as { ontouchstart?: unknown }).ontouchstart;
       
       // Mock navigator.maxTouchPoints
       Object.defineProperty(navigator, 'maxTouchPoints', {

@@ -106,7 +106,7 @@ describe('Performance Optimization Integration', () => {
       type: '',
     };
     
-    vi.spyOn(document, 'createElement').mockReturnValue(mockLink as any);
+    vi.spyOn(document, 'createElement').mockReturnValue(mockLink as HTMLLinkElement);
     
     render(<App />);
     

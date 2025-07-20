@@ -147,7 +147,7 @@ describe('ContentManager', () => {
 
     it('should detect invalid services', () => {
       const invalidServices = [
-        { id: '', title: '', description: '', features: 'not-array' } as any
+        { id: '', title: '', description: '', features: 'not-array' } as Service & { features: string }
       ];
       const result = manager.validateServices(invalidServices);
       expect(result.isValid).toBe(false);
@@ -186,7 +186,7 @@ describe('ContentManager', () => {
 
     it('should detect invalid testimonials', () => {
       const invalidTestimonials = [
-        { id: '', clientName: '', content: '', rating: 10 } as any
+        { id: '', clientName: '', content: '', rating: 10 } as Testimonial & { rating: number }
       ];
       const result = manager.validateTestimonials(invalidTestimonials);
       expect(result.isValid).toBe(false);
@@ -245,7 +245,7 @@ describe('ContentManager', () => {
 
     it('should detect invalid blog posts', () => {
       const invalidBlogPosts = [
-        { id: '', title: '', excerpt: '', status: 'invalid' } as any
+        { id: '', title: '', excerpt: '', status: 'invalid' } as BlogPost & { status: string }
       ];
       const result = manager.validateBlogPosts(invalidBlogPosts);
       expect(result.isValid).toBe(false);
@@ -293,7 +293,7 @@ describe('ContentManager', () => {
         siteName: '',
         author: { name: '' },
         contact: { email: '' }
-      } as any;
+      } as SiteConfig & { author: { name: string }; contact: { email: string } };
       const result = manager.validateSiteConfig(invalidSiteConfig);
       expect(result.isValid).toBe(false);
       expect(result.errors.length).toBeGreaterThan(0);

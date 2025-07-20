@@ -95,7 +95,7 @@ describe('Header Component', () => {
       };
       
       // Mock document.querySelector to return our mock element
-      vi.spyOn(document, 'querySelector').mockReturnValue(mockElement as any);
+      vi.spyOn(document, 'querySelector').mockReturnValue(mockElement as HTMLElement);
 
       render(<Header navigation={mockNavigation} />);
       
@@ -153,7 +153,7 @@ describe('Header Component', () => {
       };
       
       // Mock document.querySelector to return our mock element
-      vi.spyOn(document, 'querySelector').mockReturnValue(mockElement as any);
+      vi.spyOn(document, 'querySelector').mockReturnValue(mockElement as HTMLElement);
 
       render(<Header navigation={mockNavigation} />);
       

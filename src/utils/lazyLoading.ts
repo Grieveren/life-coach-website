@@ -3,7 +3,7 @@ import React, { lazy, ComponentType } from 'react';
 /**
  * Utility for lazy loading React components with error handling
  */
-export const lazyLoadComponent = <T extends ComponentType<any>>(
+export const lazyLoadComponent = <T extends ComponentType<Record<string, unknown>>>(
   importFunc: () => Promise<{ default: T }>
 ) => {
   return lazy(() =>
@@ -92,28 +92,28 @@ export const performanceUtils = {
   /**
    * Debounce function for performance optimization
    */
-  debounce: <T extends (...args: any[]) => any>(
+  debounce: <T extends (...args: unknown[]) => unknown>(
     func: T,
     wait: number
   ): ((...args: Parameters<T>) => void) => {
     let timeout: ReturnType<typeof setTimeout>;
     return (...args: Parameters<T>) => {
       clearTimeout(timeout);
-      timeout = setTimeout(() => func.apply(null, args), wait);
+      timeout = setTimeout(() => func(...args), wait);
     };
   },
 
   /**
    * Throttle function for performance optimization
    */
-  throttle: <T extends (...args: any[]) => any>(
+  throttle: <T extends (...args: unknown[]) => unknown>(
     func: T,
     limit: number
   ): ((...args: Parameters<T>) => void) => {
     let inThrottle: boolean;
     return (...args: Parameters<T>) => {
       if (!inThrottle) {
-        func.apply(null, args);
+        func(...args);
         inThrottle = true;
         setTimeout(() => (inThrottle = false), limit);
       }

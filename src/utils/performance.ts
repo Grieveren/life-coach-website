@@ -71,7 +71,7 @@ class PerformanceMonitor {
         const fidObserver = new PerformanceObserver((list) => {
           const entries = list.getEntries();
           entries.forEach((entry) => {
-            const fidEntry = entry as any; // PerformanceEventTiming not fully supported in types
+            const fidEntry = entry as PerformanceEntry & { processingStart: number };
             this.logMetric('First Input Delay', fidEntry.processingStart - entry.startTime);
           });
         });

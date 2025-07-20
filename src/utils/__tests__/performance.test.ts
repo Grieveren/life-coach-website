@@ -14,7 +14,7 @@ Object.defineProperty(global, 'performance', {
 });
 
 // Mock PerformanceObserver
-global.PerformanceObserver = vi.fn().mockImplementation((callback) => ({
+global.PerformanceObserver = vi.fn().mockImplementation(() => ({
   observe: vi.fn(),
   disconnect: vi.fn(),
 }));
@@ -121,7 +121,7 @@ describe('Bundle Optimization', () => {
       onerror: null as (() => void) | null,
     };
     
-    vi.spyOn(document, 'createElement').mockReturnValue(mockLink as any);
+    vi.spyOn(document, 'createElement').mockReturnValue(mockLink as HTMLLinkElement);
     
     bundleOptimization.preloadResource('/test.css', 'style', 'text/css');
     
@@ -140,7 +140,7 @@ describe('Bundle Optimization', () => {
       onload: null as (() => void) | null,
     };
     
-    vi.spyOn(document, 'createElement').mockReturnValue(mockLink as any);
+    vi.spyOn(document, 'createElement').mockReturnValue(mockLink as HTMLLinkElement);
     
     bundleOptimization.prefetchResource('/next-page.js');
     

@@ -91,7 +91,7 @@ export class ContentManager {
 
     try {
       const response = await import('../data/testimonials.json');
-      const rawTestimonials = response.default as any[];
+      const rawTestimonials = response.default as Array<Omit<Testimonial, 'dateGiven'> & { dateGiven?: string }>;
       
       // Convert date strings to Date objects
       const testimonials: Testimonial[] = rawTestimonials.map(testimonial => ({
@@ -146,7 +146,7 @@ export class ContentManager {
 
     try {
       const response = await import('../data/blog-posts.json');
-      const rawBlogPosts = response.default as any[];
+      const rawBlogPosts = response.default as Array<Omit<BlogPost, 'publishDate'> & { publishDate: string }>;
       
       // Convert date strings to Date objects and filter published posts
       const blogPosts: BlogPost[] = rawBlogPosts
