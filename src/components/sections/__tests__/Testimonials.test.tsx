@@ -1,7 +1,13 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import Testimonials from '../Testimonials';
 import { Testimonial } from '../../../types';
+import { loadTestimonials } from '../../../utils/contentManager';
+
+// Mock contentManager
+vi.mock('../../../utils/contentManager', () => ({
+  loadTestimonials: vi.fn()
+}));
 
 const mockTestimonials: Testimonial[] = [
   {
@@ -36,6 +42,9 @@ const mockTestimonials: Testimonial[] = [
 // Mock timers for auto-rotation testing
 beforeEach(() => {
   vi.useFakeTimers();
+  vi.clearAllMocks();
+  // Default mock implementation
+  vi.mocked(loadTestimonials).mockResolvedValue(mockTestimonials);
 });
 
 afterEach(() => {
@@ -210,12 +219,22 @@ describe('Testimonials', () => {
     expect(container.firstChild).toHaveClass('custom-testimonials');
   });
 
-  it('uses default testimonials when none provided', () => {
+  it('uses default testimonials when none provided', async () => {
+    // Use real timers for this test since it involves async loading
+    vi.useRealTimers();
+    
     render(<Testimonials />);
     
     // Should render with default testimonials
     expect(screen.getByText('Client Success Stories')).toBeInTheDocument();
-    // Check that at least one of the default testimonials is visible (only one is shown at a time)
-    expect(screen.getByText('Sarah Johnson')).toBeInTheDocument();
+    
+    // Wait for testimonials to load
+    await waitFor(() => {
+      // Check that at least one of the default testimonials is visible (only one is shown at a time)
+      expect(screen.getByText('Sarah Johnson')).toBeInTheDocument();
+    });
+    
+    // Restore fake timers for other tests
+    vi.useFakeTimers();
   });
 });

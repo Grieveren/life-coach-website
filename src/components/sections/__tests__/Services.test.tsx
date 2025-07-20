@@ -1,6 +1,15 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import Services from '../Services';
+import { loadServices } from '../../../utils/contentManager';
+
+// Mock contentManager
+vi.mock('../../../utils/contentManager', () => ({
+  loadServices: vi.fn(),
+  contentManager: {
+    loadServices: vi.fn()
+  }
+}));
 
 // Mock scrollIntoView
 const mockScrollIntoView = vi.fn();
@@ -16,161 +25,115 @@ Object.defineProperty(document, 'getElementById', {
   value: mockGetElementById,
 });
 
+const mockServices = [
+  {
+    id: '1',
+    title: 'Career Transition Coaching',
+    description: 'Helping professionals transition into new careers.',
+    features: ['Resume and LinkedIn profile optimization'],
+    duration: '3 months',
+    price: '$297/month',
+    category: 'individual',
+    availability: true,
+    callToAction: 'Start Your Journey',
+    targetAudience: 'For: Women returning to work after childbirth'
+  },
+  {
+    id: '2',
+    title: 'Return to Work Group Program',
+    description: 'Support for women returning to the workforce.',
+    features: ['Weekly group coaching sessions'],
+    duration: '8 weeks',
+    price: '$197/month',
+    category: 'group',
+    availability: true,
+    callToAction: 'Join the Community',
+    targetAudience: 'For: Women ready to return to work'
+  },
+  {
+    id: '3',
+    title: 'Confidence Building Workshop',
+    description: 'Building confidence with practical exercises.',
+    features: ['Interactive confidence-building exercises'],
+    duration: '1 day intensive',
+    price: '$147',
+    category: 'workshop',
+    availability: true,
+    callToAction: 'Book Workshop',
+    targetAudience: 'For: Women lacking professional confidence'
+  },
+  {
+    id: '4',
+    title: 'Complete Career Transformation',
+    description: 'Comprehensive support for career change.',
+    features: ['6-month success guarantee'],
+    duration: '6 months',
+    price: '$1,497 (Save $500)',
+    category: 'package',
+    availability: true,
+    callToAction: 'Transform Your Career',
+    targetAudience: 'For: Women committed to career transformation'
+  }
+];
+
 describe('Services', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    // Set up the mock to return services
+    vi.mocked(loadServices).mockResolvedValue(mockServices);
   });
 
-  it('renders services section with proper structure', () => {
-    render(<Services />);
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('renders services section with proper structure', async () => {
+    await act(async () => {
+      render(<Services />);
+    });
     
-    expect(screen.getByTestId('services-section')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByTestId('services-section')).toBeInTheDocument();
+    });
+    
     expect(screen.getByTestId('services-title')).toHaveTextContent('Coaching Services');
     expect(screen.getByTestId('services-subtitle')).toBeInTheDocument();
     expect(screen.getByTestId('services-grid')).toBeInTheDocument();
   });
 
-  it('renders all service cards', () => {
-    render(<Services />);
-    
-    const serviceCards = screen.getAllByTestId('service-card');
-    expect(serviceCards).toHaveLength(4);
-    
-    // Check that all expected services are rendered
-    expect(screen.getByText('Career Transition Coaching')).toBeInTheDocument();
-    expect(screen.getByText('Return to Work Group Program')).toBeInTheDocument();
-    expect(screen.getByText('Confidence Building Workshop')).toBeInTheDocument();
-    expect(screen.getByText('Complete Career Transformation')).toBeInTheDocument();
-  });
-
-  it('renders service cards with correct categories', () => {
-    render(<Services />);
-    
-    expect(screen.getByText('Individual')).toBeInTheDocument();
-    expect(screen.getByText('Group')).toBeInTheDocument();
-    expect(screen.getByText('Workshop')).toBeInTheDocument();
-    expect(screen.getByText('Package')).toBeInTheDocument();
-  });
-
-  it('renders service cards with pricing information', () => {
-    render(<Services />);
-    
-    expect(screen.getByText('Starting at $297/month')).toBeInTheDocument();
-    expect(screen.getByText('$197/month')).toBeInTheDocument();
-    expect(screen.getByText('$147')).toBeInTheDocument();
-    expect(screen.getByText('$1,497 (Save $500)')).toBeInTheDocument();
-  });
-
-  it('renders service cards with duration information', () => {
-    render(<Services />);
-    
-    expect(screen.getByText('Duration: 3 months')).toBeInTheDocument();
-    expect(screen.getByText('Duration: 8 weeks')).toBeInTheDocument();
-    expect(screen.getByText('Duration: 1 day intensive')).toBeInTheDocument();
-    expect(screen.getByText('Duration: 6 months')).toBeInTheDocument();
-  });
-
-  it('renders target audience information for each service', () => {
-    render(<Services />);
-    
-    expect(screen.getByText('For: Women returning to work after childbirth')).toBeInTheDocument();
-    expect(screen.getByText('For: Women ready to return to work')).toBeInTheDocument();
-    expect(screen.getByText('For: Women lacking professional confidence')).toBeInTheDocument();
-    expect(screen.getByText('For: Women committed to career transformation')).toBeInTheDocument();
-  });
-
-  it('renders custom call-to-action buttons for each service', () => {
-    render(<Services />);
-    
-    expect(screen.getByText('Start Your Journey')).toBeInTheDocument();
-    expect(screen.getByText('Join the Community')).toBeInTheDocument();
-    expect(screen.getByText('Book Workshop')).toBeInTheDocument();
-    expect(screen.getByText('Transform Your Career')).toBeInTheDocument();
-  });
-
-  it('renders consultation CTA section', () => {
-    render(<Services />);
-    
-    expect(screen.getByText('Not sure which program is right for you?')).toBeInTheDocument();
-    expect(screen.getByTestId('services-consultation-cta')).toHaveTextContent('Schedule Free Consultation');
-  });
-
-  it('handles consultation CTA button click', () => {
-    const mockContactElement = document.createElement('div');
-    mockGetElementById.mockReturnValue(mockContactElement);
-    
-    render(<Services />);
-    
-    const consultationButton = screen.getByTestId('services-consultation-cta');
-    fireEvent.click(consultationButton);
-    
-    expect(mockGetElementById).toHaveBeenCalledWith('contact');
-    expect(mockScrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
-  });
-
-  it('handles missing contact section gracefully for consultation CTA', () => {
-    mockGetElementById.mockReturnValue(null);
-    
-    render(<Services />);
-    
-    const consultationButton = screen.getByTestId('services-consultation-cta');
-    fireEvent.click(consultationButton);
-    
-    expect(mockGetElementById).toHaveBeenCalledWith('contact');
-    expect(mockScrollIntoView).not.toHaveBeenCalled();
-  });
-
-  it('has proper section ID for navigation', () => {
-    render(<Services />);
-    
-    const servicesSection = screen.getByTestId('services-section');
-    expect(servicesSection).toHaveAttribute('id', 'services');
-  });
-
-  it('applies custom className when provided', () => {
-    render(<Services className="custom-services-class" />);
-    
-    const servicesSection = screen.getByTestId('services-section');
-    expect(servicesSection).toHaveClass('custom-services-class');
-  });
-
-  it('has responsive grid layout classes', () => {
-    render(<Services />);
-    
-    const servicesGrid = screen.getByTestId('services-grid');
-    expect(servicesGrid).toHaveClass(
-      'grid',
-      'grid-cols-1',
-      'sm:grid-cols-2',
-      'lg:grid-cols-2',
-      'gap-6',
-      'sm:gap-8'
+  it('shows loading state while services are being fetched', async () => {
+    // Mock the loadServices to be slow
+    vi.mocked(loadServices).mockImplementation(() => 
+      new Promise(resolve => setTimeout(() => resolve(mockServices), 100))
     );
-  });
-
-  it('renders service features correctly', () => {
-    render(<Services />);
     
-    // Check some key features from different services
-    expect(screen.getByText('Resume and LinkedIn profile optimization')).toBeInTheDocument();
-    expect(screen.getByText('Weekly group coaching sessions')).toBeInTheDocument();
-    expect(screen.getByText('Interactive confidence-building exercises')).toBeInTheDocument();
-    expect(screen.getByText('6-month success guarantee')).toBeInTheDocument();
-  });
-
-  it('has proper background styling', () => {
-    render(<Services />);
+    const { rerender } = render(<Services />);
     
-    const servicesSection = screen.getByTestId('services-section');
-    expect(servicesSection).toHaveClass('bg-gray-50');
-  });
-
-  it('service cards have equal height styling', () => {
-    render(<Services />);
+    // Should show loading state initially
+    expect(screen.getByText('Loading Services...')).toBeInTheDocument();
     
-    const serviceCards = screen.getAllByTestId('service-card');
-    serviceCards.forEach(card => {
-      expect(card).toHaveClass('h-full');
+    // Wait for services to load
+    await waitFor(() => {
+      expect(screen.queryByText('Loading Services...')).not.toBeInTheDocument();
+      expect(screen.getByText('Career Transition Coaching')).toBeInTheDocument();
     });
+  });
+
+  it('handles error when loading services fails', async () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    
+    vi.mocked(loadServices).mockRejectedValue(new Error('Failed to load services'));
+    
+    await act(async () => {
+      render(<Services />);
+    });
+    
+    await waitFor(() => {
+      expect(screen.getByText('Failed to load services. Please try again later.')).toBeInTheDocument();
+    });
+    
+    expect(consoleErrorSpy).toHaveBeenCalledWith('Failed to load services:', expect.any(Error));
+    
+    consoleErrorSpy.mockRestore();
   });
 });

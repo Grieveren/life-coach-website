@@ -1,31 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { describe, it, expect } from 'vitest';
 import Loading from '../Loading';
-import { expect } from 'vitest';
-import { expect } from 'vitest';
-import { expect } from 'vitest';
-import { it } from 'vitest';
-import { expect } from 'vitest';
-import { it } from 'vitest';
-import { expect } from 'vitest';
-import { expect } from 'vitest';
-import { it } from 'vitest';
-import { expect } from 'vitest';
-import { expect } from 'vitest';
-import { it } from 'vitest';
-import { expect } from 'vitest';
-import { expect } from 'vitest';
-import { it } from 'vitest';
-import { expect } from 'vitest';
-import { expect } from 'vitest';
-import { it } from 'vitest';
-import { expect } from 'vitest';
-import { expect } from 'vitest';
-import { it } from 'vitest';
-import { expect } from 'vitest';
-import { expect } from 'vitest';
-import { it } from 'vitest';
-import { describe } from 'vitest';
 
 describe('Loading', () => {
   it('renders with default props', () => {
@@ -33,7 +9,7 @@ describe('Loading', () => {
     
     expect(screen.getByText('Loading...')).toBeInTheDocument();
     const spinner = container.querySelector('svg');
-    expect(spinner).toHaveClass('w-6', 'h-6', 'animate-spin', 'text-blue-600');
+    expect(spinner).toHaveClass('w-6', 'h-6', 'animate-spin', 'text-teal-600');
   });
 
   it('renders with custom text', () => {

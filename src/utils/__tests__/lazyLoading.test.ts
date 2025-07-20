@@ -117,14 +117,15 @@ describe('Lazy Loading Utilities', () => {
 
     it('should measure performance', () => {
       const mockPerformance = {
-        now: vi.fn().mockReturnValueOnce(0).mockReturnValueOnce(100),
+        now: vi.fn().mockReturnValue(100),
       };
       Object.defineProperty(global, 'performance', {
         value: mockPerformance,
         writable: true,
       });
       
-      const duration = performanceUtils.measurePerformance('Test Operation', 0);
+      const startTime = 0;
+      const duration = performanceUtils.measurePerformance('Test Operation', startTime);
       
       expect(duration).toBe(100);
       expect(mockPerformance.now).toHaveBeenCalledTimes(1);

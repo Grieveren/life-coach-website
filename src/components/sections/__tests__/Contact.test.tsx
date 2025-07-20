@@ -11,11 +11,13 @@ vi.mock('@emailjs/browser', () => ({
   },
 }));
 
-const mockEmailjs = emailjs as { send: ReturnType<typeof vi.fn> };
+const mockEmailjs = emailjs as unknown as { send: ReturnType<typeof vi.fn> };
 
 describe('Contact Component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    // Ensure the mock is properly reset and configured
+    mockEmailjs.send.mockClear();
   });
 
   afterEach(() => {
@@ -324,16 +326,16 @@ describe('Contact Component', () => {
     const nameInput = screen.getByLabelText(/full name/i);
     const emailInput = screen.getByLabelText(/email address/i);
     
-    // Initially should have normal border
-    expect(nameInput).toHaveClass('border-gray-300');
-    expect(emailInput).toHaveClass('border-gray-300');
+    // Initially should have normal form-input class
+    expect(nameInput).toHaveClass('form-input');
+    expect(emailInput).toHaveClass('form-input');
     
     // Trigger validation errors
     await user.click(screen.getByRole('button', { name: /send message/i }));
     
     await waitFor(() => {
-      expect(nameInput).toHaveClass('border-red-500');
-      expect(emailInput).toHaveClass('border-red-500');
+      expect(nameInput).toHaveClass('form-input-error');
+      expect(emailInput).toHaveClass('form-input-error');
     });
   });
 
@@ -360,7 +362,14 @@ describe('Contact Component', () => {
   describe('Error Handling', () => {
     it('handles network errors with specific message', async () => {
       const user = userEvent.setup();
-      mockEmailjs.send.mockRejectedValueOnce(new Error('network error occurred'));
+      // Mock the rejection to happen after the timeout
+      mockEmailjs.send.mockImplementation(() => {
+        return new Promise((_, reject) => {
+          setTimeout(() => {
+            reject(new Error('network error occurred'));
+          }, 1100); // After the 1 second delay in the component
+        });
+      });
       
       render(<Contact />);
       
@@ -370,14 +379,24 @@ describe('Contact Component', () => {
       await user.type(screen.getByLabelText(/message/i), 'Test message');
       await user.click(screen.getByRole('button', { name: /send message/i }));
       
+      // Wait for the loading state to appear
+      expect(screen.getByText('Sending...')).toBeInTheDocument();
+      
+      // Wait for the error message to appear
       await waitFor(() => {
-        expect(screen.getByText(/network error: please check your internet connection and try again/i)).toBeInTheDocument();
-      });
+        expect(screen.getByText('Network error: Please check your internet connection and try again.')).toBeInTheDocument();
+      }, { timeout: 5000 });
     });
 
     it('handles timeout errors with specific message', async () => {
       const user = userEvent.setup();
-      mockEmailjs.send.mockRejectedValueOnce(new Error('timeout occurred'));
+      mockEmailjs.send.mockImplementation(() => {
+        return new Promise((_, reject) => {
+          setTimeout(() => {
+            reject(new Error('timeout occurred'));
+          }, 1100);
+        });
+      });
       
       render(<Contact />);
       
@@ -389,12 +408,18 @@ describe('Contact Component', () => {
       
       await waitFor(() => {
         expect(screen.getByText(/request timeout: the server took too long to respond/i)).toBeInTheDocument();
-      });
+      }, { timeout: 5000 });
     });
 
     it('handles generic errors with default message', async () => {
       const user = userEvent.setup();
-      mockEmailjs.send.mockRejectedValueOnce(new Error('Unknown error'));
+      mockEmailjs.send.mockImplementation(() => {
+        return new Promise((_, reject) => {
+          setTimeout(() => {
+            reject(new Error('Unknown error'));
+          }, 1100);
+        });
+      });
       
       render(<Contact />);
       
@@ -406,12 +431,18 @@ describe('Contact Component', () => {
       
       await waitFor(() => {
         expect(screen.getByText(/sorry, there was an error sending your message/i)).toBeInTheDocument();
-      });
+      }, { timeout: 5000 });
     });
 
     it('handles non-Error objects thrown', async () => {
       const user = userEvent.setup();
-      mockEmailjs.send.mockRejectedValueOnce('String error');
+      mockEmailjs.send.mockImplementation(() => {
+        return new Promise((_, reject) => {
+          setTimeout(() => {
+            reject('String error');
+          }, 1100);
+        });
+      });
       
       render(<Contact />);
       
@@ -423,12 +454,18 @@ describe('Contact Component', () => {
       
       await waitFor(() => {
         expect(screen.getByText(/sorry, there was an error sending your message/i)).toBeInTheDocument();
-      });
+      }, { timeout: 5000 });
     });
 
     it('displays error message with proper styling and icon', async () => {
       const user = userEvent.setup();
-      mockEmailjs.send.mockRejectedValueOnce(new Error('Test error'));
+      mockEmailjs.send.mockImplementation(() => {
+        return new Promise((_, reject) => {
+          setTimeout(() => {
+            reject(new Error('Test error'));
+          }, 1100);
+        });
+      });
       
       render(<Contact />);
       
@@ -439,13 +476,15 @@ describe('Contact Component', () => {
       await user.click(screen.getByRole('button', { name: /send message/i }));
       
       await waitFor(() => {
-        const errorContainer = screen.getByText(/sorry, there was an error/i).closest('.bg-red-50');
-        expect(errorContainer).toHaveClass('bg-red-50', 'border-red-200');
+        const errorContainer = screen.getByText(/sorry, there was an error/i).closest('.bg-error-50');
+        expect(errorContainer).toBeInTheDocument();
+        expect(errorContainer).toHaveClass('bg-error-50', 'border-error-200');
         
         // Check for error icon
         const errorIcon = errorContainer?.querySelector('svg');
-        expect(errorIcon).toHaveClass('text-red-400');
-      });
+        expect(errorIcon).toBeInTheDocument();
+        expect(errorIcon).toHaveClass('text-error-400');
+      }, { timeout: 5000 });
     });
 
     it('displays success message with proper styling and icon', async () => {
@@ -461,12 +500,14 @@ describe('Contact Component', () => {
       await user.click(screen.getByRole('button', { name: /send message/i }));
       
       await waitFor(() => {
-        const successContainer = screen.getByText(/thank you for your message/i).closest('.bg-green-50');
-        expect(successContainer).toHaveClass('bg-green-50', 'border-green-200');
+        const successContainer = screen.getByText(/thank you for your message/i).closest('.bg-success-50');
+        expect(successContainer).toBeInTheDocument();
+        expect(successContainer).toHaveClass('bg-success-50', 'border-success-200');
         
         // Check for success icon
         const successIcon = successContainer?.querySelector('svg');
-        expect(successIcon).toHaveClass('text-green-400');
+        expect(successIcon).toBeInTheDocument();
+        expect(successIcon).toHaveClass('text-success-400');
       });
     });
 

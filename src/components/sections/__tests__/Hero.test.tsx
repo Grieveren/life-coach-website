@@ -200,24 +200,17 @@ describe('Hero Component', () => {
       render(<Hero />);
       
       const section = screen.getByRole('region');
-      expect(section).toHaveClass('bg-gradient-to-br', 'from-blue-50', 'via-teal-50', 'to-blue-100');
+      expect(section).toHaveClass('bg-gradient-to-br', 'from-secondary-50', 'via-primary-50', 'to-secondary-100');
       
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('bg-gradient-to-r', 'from-teal-600', 'to-blue-600');
+      expect(button).toHaveClass('btn-primary');
     });
 
     it('has hover and focus states', () => {
       render(<Hero />);
       
       const button = screen.getByRole('button');
-      expect(button).toHaveClass(
-        'hover:from-teal-700',
-        'hover:to-blue-700',
-        'hover:scale-105',
-        'focus:outline-none',
-        'focus:ring-4',
-        'focus:ring-teal-300'
-      );
+      expect(button).toHaveClass('btn-primary', 'focus-visible');
     });
   });
 

@@ -53,22 +53,22 @@ describe('ServiceCard', () => {
     
     const categoryBadge = screen.getByTestId('service-category');
     expect(categoryBadge).toHaveTextContent('Individual');
-    expect(categoryBadge).toHaveClass('bg-blue-100', 'text-blue-800');
+expect(categoryBadge).toHaveClass('bg-secondary-100', 'text-secondary-800');
   });
 
   it('renders different category colors correctly', () => {
     const groupService = { ...mockService, category: 'group' as const };
     const { rerender } = render(<ServiceCard service={groupService} />);
     
-    expect(screen.getByTestId('service-category')).toHaveClass('bg-green-100', 'text-green-800');
+expect(screen.getByTestId('service-category')).toHaveClass('bg-success-100', 'text-success-800');
     
     const workshopService = { ...mockService, category: 'workshop' as const };
     rerender(<ServiceCard service={workshopService} />);
-    expect(screen.getByTestId('service-category')).toHaveClass('bg-purple-100', 'text-purple-800');
+expect(screen.getByTestId('service-category')).toHaveClass('bg-primary-100', 'text-primary-800');
     
     const packageService = { ...mockService, category: 'package' as const };
     rerender(<ServiceCard service={packageService} />);
-    expect(screen.getByTestId('service-category')).toHaveClass('bg-orange-100', 'text-orange-800');
+expect(screen.getByTestId('service-category')).toHaveClass('bg-warning-100', 'text-warning-800');
   });
 
   it('renders target audience when provided', () => {
@@ -164,10 +164,12 @@ describe('ServiceCard', () => {
     render(<ServiceCard service={mockService} />);
     
     const serviceCard = screen.getByTestId('service-card');
-    expect(serviceCard).toHaveClass('hover:shadow-lg', 'transition-shadow');
+    // Check for card-interactive class which includes hover and transition effects
+    expect(serviceCard).toHaveClass('card-interactive');
     
     const ctaButton = screen.getByTestId('service-cta');
-    expect(ctaButton).toHaveClass('focus:outline-none', 'focus:ring-2', 'focus:ring-blue-500');
+    // Check for btn-primary and focus-visible classes
+    expect(ctaButton).toHaveClass('btn-primary', 'focus-visible');
   });
 
   it('renders empty features list when features array is empty', () => {

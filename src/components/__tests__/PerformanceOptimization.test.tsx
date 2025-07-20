@@ -52,17 +52,34 @@ describe('Performance Optimization Integration', () => {
     vi.clearAllMocks();
     performanceMonitor.clearMetrics();
     
-    // Mock document.head for resource preloading tests
+    // Store original document.head
+    const originalHead = document.head;
+    
+    // Create mock head element with appendChild spy
+    const mockHead = document.createElement('head');
+    mockHead.appendChild = vi.fn((node) => {
+      // Still return the node to mimic real appendChild behavior
+      return node;
+    });
+    
+    // Replace document.head with our mock
     Object.defineProperty(document, 'head', {
-      value: {
-        appendChild: vi.fn(),
-      },
+      value: mockHead,
       writable: true,
+      configurable: true,
     });
   });
 
   afterEach(() => {
     performanceMonitor.clearMetrics();
+    vi.restoreAllMocks();
+    
+    // Restore original document.head
+    Object.defineProperty(document, 'head', {
+      value: document.createElement('head'),
+      writable: true,
+      configurable: true,
+    });
   });
 
   it('should render all sections without performance issues', async () => {
@@ -99,20 +116,19 @@ describe('Performance Optimization Integration', () => {
   });
 
   it('should preload critical resources', () => {
-    const mockLink = {
-      rel: '',
-      href: '',
-      as: '',
-      type: '',
-    };
-    
-    vi.spyOn(document, 'createElement').mockReturnValue(mockLink as HTMLLinkElement);
-    
     render(<App />);
     
     // Should preload font resources
-    expect(document.createElement).toHaveBeenCalledWith('link');
     expect(document.head.appendChild).toHaveBeenCalled();
+    
+    // Check that a link element was created and appended
+    const appendedElement = (document.head.appendChild as vi.Mock).mock.calls[0][0];
+    expect(appendedElement).toBeDefined();
+    expect(appendedElement.tagName).toBe('LINK');
+    expect(appendedElement.rel).toBe('preload');
+    expect(appendedElement.href).toContain('fonts/inter.woff2');
+    expect(appendedElement.as).toBe('font');
+    expect(appendedElement.type).toBe('font/woff2');
   });
 
   it('should handle window load event for performance tracking', () => {
@@ -206,6 +222,32 @@ describe('Performance Optimization Integration', () => {
 });
 
 describe('SEO Optimization Validation', () => {
+  beforeEach(() => {
+    // Create mock head element with appendChild spy
+    const mockHead = document.createElement('head');
+    mockHead.appendChild = vi.fn((node) => {
+      return node;
+    });
+    
+    // Replace document.head with our mock
+    Object.defineProperty(document, 'head', {
+      value: mockHead,
+      writable: true,
+      configurable: true,
+    });
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    
+    // Restore original document.head
+    Object.defineProperty(document, 'head', {
+      value: document.createElement('head'),
+      writable: true,
+      configurable: true,
+    });
+  });
+
   it('should have structured data in document head', () => {
     // In a real application, you'd check for JSON-LD structured data
     // This is a placeholder test for the concept
@@ -233,6 +275,32 @@ describe('SEO Optimization Validation', () => {
 });
 
 describe('Bundle Size Optimization', () => {
+  beforeEach(() => {
+    // Create mock head element with appendChild spy
+    const mockHead = document.createElement('head');
+    mockHead.appendChild = vi.fn((node) => {
+      return node;
+    });
+    
+    // Replace document.head with our mock
+    Object.defineProperty(document, 'head', {
+      value: mockHead,
+      writable: true,
+      configurable: true,
+    });
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    
+    // Restore original document.head
+    Object.defineProperty(document, 'head', {
+      value: document.createElement('head'),
+      writable: true,
+      configurable: true,
+    });
+  });
+
   it('should use code splitting for better performance', () => {
     // This test would verify that components are properly code-split
     // In practice, you'd use bundle analyzers or check for dynamic imports

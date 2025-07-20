@@ -115,7 +115,7 @@ describe('Header Component', () => {
       
       const desktopNav = screen.getAllByRole('navigation')[0]; // First nav is desktop
       const homeButton = desktopNav.querySelector('button') as HTMLButtonElement;
-      expect(homeButton).toHaveClass('hover:text-blue-600');
+      expect(homeButton).toHaveClass('hover:text-primary-600');
     });
   });
 

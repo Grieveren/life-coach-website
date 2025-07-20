@@ -196,6 +196,7 @@ The project includes comprehensive unit and integration tests using Vitest and T
 - Service interest dropdown functionality
 - CSS class application for validation states
 - Proper ARIA attributes and semantic HTML
+- Mock EmailJS implementation with delayed promise handling for accurate async testing
 
 **Responsive Design Testing**:
 - Breakpoint detection utilities
