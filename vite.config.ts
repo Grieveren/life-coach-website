@@ -40,11 +40,6 @@ export default defineConfig(({ mode }) => {
         },
         // Additional rollup optimizations
         external: [],
-        treeshake: {
-          moduleSideEffects: false,
-          propertyReadSideEffects: false,
-          unknownGlobalSideEffects: false,
-        },
       },
       // Enable source maps for production debugging (disable for smaller builds)
       sourcemap: mode === 'development',
