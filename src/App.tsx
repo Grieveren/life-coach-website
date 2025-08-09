@@ -18,9 +18,9 @@ function App() {
     // Log initial render time
     logRenderTime();
 
-    // Preload critical resources
-    bundleOptimization.preloadResource('/fonts/inter.woff2', 'font', 'font/woff2');
-    
+    // Preload locally hosted Inter variable font
+    bundleOptimization.preloadResource('/fonts/Inter-VariableFont_slnt,wght.woff2', 'font', 'font/woff2');
+
     // Log page load performance
     if (typeof window !== 'undefined') {
       window.addEventListener('load', () => {
@@ -28,8 +28,7 @@ function App() {
       });
     }
 
-    // Prefetch resources that might be needed later
-    bundleOptimization.prefetchResource('/api/contact');
+    // No API prefetch on static hosting
     
     return () => {
       // Cleanup performance monitoring
@@ -45,7 +44,7 @@ function App() {
       </a>
       
       <ErrorBoundary>
-        <Header siteName="Life Coach" />
+        <Header siteName="Andrea Gray Coaching" />
       </ErrorBoundary>
       
       {/* Main content with sections for navigation testing */}
@@ -83,7 +82,7 @@ function App() {
 
       {/* Footer */}
       <ErrorBoundary>
-        <Footer siteName="Andrea Grey Coaching" />
+        <Footer siteName="Andrea Gray Coaching" />
       </ErrorBoundary>
     </div>
   );

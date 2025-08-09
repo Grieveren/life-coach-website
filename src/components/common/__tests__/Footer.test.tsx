@@ -40,7 +40,7 @@ describe('Footer Component', () => {
   it('renders with default props', () => {
     render(<Footer />);
     
-    expect(screen.getByText('Andrea Grey Coaching')).toBeInTheDocument();
+    expect(screen.getByText('Andrea Gray Coaching')).toBeInTheDocument();
     expect(screen.getByText(/Empowering mothers to successfully transition/)).toBeInTheDocument();
     expect(screen.getByText('Professional Credentials')).toBeInTheDocument();
     expect(screen.getByText('Contact Info')).toBeInTheDocument();
@@ -124,8 +124,8 @@ describe('Footer Component', () => {
   it('renders legal links', () => {
     render(<Footer />);
     
-    expect(screen.getByText('Privacy Policy')).toBeInTheDocument();
-    expect(screen.getByText('Terms of Service')).toBeInTheDocument();
+    expect(screen.getByText(/Privacy Policy/)).toBeInTheDocument();
+    expect(screen.getByText('Impressum')).toBeInTheDocument();
     expect(screen.getByText('Coaching Agreement')).toBeInTheDocument();
   });
 

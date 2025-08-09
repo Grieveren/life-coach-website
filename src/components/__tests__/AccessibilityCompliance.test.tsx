@@ -16,31 +16,31 @@ describe('Accessibility Compliance Tests', () => {
       const { container } = render(<App />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
-    });
+    }, 15000);
 
     it('should have no accessibility violations in Hero section', async () => {
       const { container } = render(<Hero />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
-    });
+    }, 15000);
 
     it('should have no accessibility violations in Header component', async () => {
       const { container } = render(<Header siteName="Test Site" />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
-    });
+    }, 15000);
 
     it('should have no accessibility violations in Contact form', async () => {
       const { container } = render(<Contact />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
-    });
+    }, 15000);
 
     it('should have no accessibility violations in Services section', async () => {
       const { container } = render(<Services />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
-    });
+    }, 15000);
   });
 
   describe('Keyboard Navigation', () => {

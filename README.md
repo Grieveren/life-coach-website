@@ -282,7 +282,7 @@ The project uses a custom Tailwind configuration with:
   - **Warning Yellow** (`warning`): Caution and attention states (#f59e0b)
 - **Custom Typography**: Extended font sizes with optimized line heights
 - **Custom Spacing**: Additional spacing utilities (18, 88) and `screen-small` min-height
-- **Inter Font Family**: Professional typography with system fallbacks
+ - **Inter Font Family**: Self-hosted Inter (GDPR-friendly) with system fallbacks
 
 ### Vite Build Configuration
 Advanced build optimization with:
@@ -325,11 +325,12 @@ The project features advanced build optimizations for production:
 
 ## 🚀 Deployment
 
-The project is configured for static site deployment and can be deployed to:
-- Netlify
-- Vercel
-- GitHub Pages
-- Any static hosting service
+The project is configured for static site deployment. Current hosting: GoDaddy cPanel (static).
+High-level steps:
+- Build: `npm ci && npm run build`
+- Zip contents of `dist/` (we produce `dist/site.zip` in the build task)
+- Upload to cPanel → File Manager → `public_html` → Extract
+- Ensure `.htaccess`, `robots.txt`, `sitemap.xml`, `fonts/` are in `public_html`
 
 Build the project for production:
 ```bash
@@ -337,6 +338,23 @@ npm run build
 ```
 
 The built files will be in the `dist/` directory.
+
+### Contact Form (EmailJS)
+- Create a free EmailJS account, then obtain:
+  - Service ID
+  - Template ID
+  - Public Key
+- Create `.env.production` with:
+```
+VITE_EMAILJS_SERVICE_ID=...
+VITE_EMAILJS_TEMPLATE_ID=...
+VITE_EMAILJS_PUBLIC_KEY=...
+VITE_SITE_URL=https://andreagray.de
+VITE_SITE_NAME="Andrea Gray Coaching"
+VITE_CONTACT_EMAIL=coaching@andreagray.de
+VITE_CONTACT_PHONE="+49 176 64022283"
+```
+- Rebuild and deploy. The `Contact` form will send emails to the configured address.
 
 ## 🤝 Contributing
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import emailjs from '@emailjs/browser';
+import { emailjsConfig, contactConfig } from '../../config/env';
 import { ContactForm, FormSubmissionState } from '../../types';
 import Loading from '../common/Loading';
 
@@ -28,10 +29,8 @@ const Contact: React.FC = () => {
     });
 
     try {
-      // EmailJS configuration - these would typically come from environment variables
-      const serviceId = 'your_service_id';
-      const templateId = 'your_template_id';
-      const publicKey = 'your_public_key';
+      // EmailJS configuration from environment
+      const { serviceId, templateId, publicKey } = emailjsConfig;
 
       const templateParams = {
         from_name: data.name,
@@ -113,7 +112,7 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-lg font-medium text-gray-900">Email</h4>
-                  <p className="text-gray-600">hello@lifecoach.com</p>
+                  <p className="text-gray-600">{contactConfig.email}</p>
                 </div>
               </div>
 
@@ -127,7 +126,7 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-lg font-medium text-gray-900">Phone</h4>
-                  <p className="text-gray-600">(555) 123-4567</p>
+                  <p className="text-gray-600">{contactConfig.phone || '+49 176 64022283'}</p>
                 </div>
               </div>
 

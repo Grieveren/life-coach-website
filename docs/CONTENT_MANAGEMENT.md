@@ -163,11 +163,11 @@ General site settings and information:
     "credentials": ["Credential 1", "Credential 2"]
   },
   "contact": {
-    "email": "contact@example.com",
-    "phone": "(555) 123-4567",
+    "email": "coaching@andreagray.de",
+    "phone": "+49 176 64022283",
     "address": {
-      "city": "City",
-      "state": "State"
+      "city": "Strasskirchen",
+      "state": "Bavaria, Germany"
     },
     "socialMedia": [
       {

@@ -14,15 +14,17 @@ npm run build:production
 npm run build:preview
 ```
 
-### Deploy to Netlify
+### Deploy to GoDaddy cPanel (static hosting)
+1. Build locally:
 ```bash
-npm run deploy:netlify
+npm ci
+npm run build
+cd dist && zip -r site.zip .
 ```
-
-### Deploy to Vercel
-```bash
-npm run deploy:vercel
-```
+2. In cPanel → File Manager → `public_html` → Upload `site.zip` → Extract.
+3. Ensure `index.html`, `assets/`, `.htaccess`, `robots.txt`, `sitemap.xml`, `fonts/` are directly in `public_html`.
+4. SSL: enable AutoSSL, the provided `.htaccess` forces HTTPS.
+5. Optional: remove placeholder files (`home.html`, `layout-styles.css`, `404.shtml`).
 
 ## Environment Configuration
 
@@ -32,19 +34,19 @@ npm run deploy:vercel
 - `.env.staging` - Staging environment settings
 - `.env.local` - Local development overrides (not tracked)
 
-### Required Environment Variables
+### Required Environment Variables (for Contact form via EmailJS)
 ```bash
 VITE_EMAILJS_SERVICE_ID=your_service_id
 VITE_EMAILJS_TEMPLATE_ID=your_template_id
 VITE_EMAILJS_PUBLIC_KEY=your_public_key
-VITE_SITE_URL=https://your-domain.com
-VITE_SITE_NAME="Your Site Name"
-VITE_CONTACT_EMAIL=contact@your-domain.com
+VITE_SITE_URL=https://andreagray.de
+VITE_SITE_NAME="Andrea Gray Coaching"
+VITE_CONTACT_EMAIL=coaching@andreagray.de
 ```
 
 ### Optional Environment Variables
 ```bash
-VITE_CONTACT_PHONE=+1-555-123-4567
+VITE_CONTACT_PHONE="+49 176 64022283"
 VITE_LINKEDIN_URL=https://linkedin.com/in/profile
 VITE_FACEBOOK_URL=https://facebook.com/page
 VITE_INSTAGRAM_URL=https://instagram.com/profile
@@ -69,32 +71,9 @@ VITE_GA_TRACKING_ID=G-XXXXXXXXXX
 - **Caching**: Long-term caching with content hashes and compressed file size reporting
 - **CSS Optimization**: Dedicated CSS minification and code splitting
 
-## Deployment Platforms
+## Platform Notes
 
-### Netlify
-1. **Setup**: Install Netlify CLI: `npm install -g netlify-cli`
-2. **Login**: `netlify login`
-3. **Deploy**: `npm run deploy:netlify`
-4. **Preview**: `npm run deploy:netlify:preview`
-
-**Configuration**: `netlify.toml`
-- Build command: `npm run build`
-- Publish directory: `dist`
-- Redirects for SPA routing
-- Security headers
-- Cache optimization
-
-### Vercel
-1. **Setup**: Install Vercel CLI: `npm install -g vercel`
-2. **Login**: `vercel login`
-3. **Deploy**: `npm run deploy:vercel`
-4. **Preview**: `npm run deploy:vercel:preview`
-
-**Configuration**: `vercel.json`
-- Static build configuration
-- SPA routing rules
-- Security headers
-- Asset caching
+- Netlify/Vercel/GitHub Pages are also supported via scripts, but this project currently uses GoDaddy cPanel static hosting.
 
 ### GitHub Pages
 1. **Setup**: Ensure git repository is configured
@@ -207,8 +186,9 @@ node -e "console.log(process.env)" | grep VITE_
 ### Headers
 - X-Frame-Options: DENY
 - X-Content-Type-Options: nosniff
-- X-XSS-Protection: 1; mode=block
 - Referrer-Policy: strict-origin-when-cross-origin
+- Strict-Transport-Security: 1 year (set in `.htaccess`)
+- Content-Security-Policy: baseline self-only policy (adjust if adding external services)
 
 ### Environment Variables
 - Never commit `.env.local` or production secrets
@@ -217,8 +197,9 @@ node -e "console.log(process.env)" | grep VITE_
 
 ### Content Security
 - All user inputs are validated
-- Email forms use secure submission
+- Email forms use secure submission via EmailJS (requires `VITE_*` config)
 - No sensitive data in client-side code
+- Self-hosted Inter font to avoid third-party font requests (GDPR)
 
 ## Maintenance
 

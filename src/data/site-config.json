@@ -15,26 +15,26 @@
     ]
   },
   "contact": {
-    "email": "hello@andreagreycoaching.com",
-    "phone": "(555) 123-4567",
+    "email": "coaching@andreagray.de",
+    "phone": "+49 176 64022283",
     "address": {
-      "city": "Austin",
-      "state": "TX"
+      "city": "Strasskirchen",
+      "state": "Bavaria, Germany"
     },
     "socialMedia": [
       {
         "platform": "linkedin",
-        "url": "https://linkedin.com/in/andreagreycoaching",
+        "url": "https://linkedin.com/in/andreagraycoaching",
         "label": "Connect on LinkedIn"
       },
       {
         "platform": "facebook",
-        "url": "https://facebook.com/andreagreycoaching",
+        "url": "https://facebook.com/andreagraycoaching",
         "label": "Follow on Facebook"
       },
       {
         "platform": "instagram",
-        "url": "https://instagram.com/andreagreycoaching",
+        "url": "https://instagram.com/andreagraycoaching",
         "label": "Follow on Instagram"
       }
     ],
@@ -84,7 +84,7 @@
     "defaultTitle": "Andrea Gray Life Coaching - Career Transition Specialist",
     "titleTemplate": "%s | Andrea Gray Life Coaching",
     "defaultDescription": "Professional life coaching services for women transitioning back into the workforce. Get the confidence and clarity you need to successfully return to your career.",
-    "siteUrl": "https://andreagreycoaching.com",
+    "siteUrl": "https://andreagray.de",
     "ogImage": "/images/og-image.jpg"
   }
 }

@@ -22,22 +22,22 @@ const defaultSocialLinks: SocialMediaLink[] = [
   },
   {
     platform: 'facebook',
-    url: 'https://facebook.com/andreagreycoaching',
+    url: 'https://facebook.com/andreagraycoaching',
     label: 'Facebook Page'
   },
   {
     platform: 'instagram',
-    url: 'https://instagram.com/andreagreycoach',
+    url: 'https://instagram.com/andreagraycoach',
     label: 'Instagram'
   }
 ];
 
 const defaultContactInfo: ContactInfo = {
-  email: 'hello@andreagreycoaching.com',
-  phone: '(555) 123-4567',
+  email: 'coaching@andreagray.de',
+  phone: '+49 176 64022283',
   address: {
-    city: 'San Francisco',
-    state: 'CA'
+    city: 'Strasskirchen',
+    state: 'Bavaria, Germany'
   }
 };
 
@@ -48,13 +48,13 @@ const defaultCredentials = [
 ];
 
 const Footer: React.FC<FooterProps> = ({
-  siteName = 'Andrea Grey Coaching',
+  siteName = 'Andrea Gray Coaching',
   contactInfo = defaultContactInfo,
   socialLinks = defaultSocialLinks,
   credentials = defaultCredentials,
   copyrightYear = new Date().getFullYear(),
   businessInfo = {
-    name: 'Andrea Grey Coaching LLC',
+    name: 'Andrea Gray Coaching LLC',
     license: 'Licensed Life Coach - CA #LC12345',
     certifications: ['CPC', 'ICF Member']
   }
@@ -208,15 +208,15 @@ const Footer: React.FC<FooterProps> = ({
 
             {/* Legal Links */}
             <div className="flex space-x-6 text-sm">
-              <button className="text-gray-400 hover:text-teal-400 transition-colors">
-                Privacy Policy
-              </button>
-              <button className="text-gray-400 hover:text-teal-400 transition-colors">
-                Terms of Service
-              </button>
-              <button className="text-gray-400 hover:text-teal-400 transition-colors">
+              <a href="/datenschutz.html" className="text-gray-400 hover:text-teal-400 transition-colors">
+                Privacy Policy / Datenschutz
+              </a>
+              <a href="/impressum.html" className="text-gray-400 hover:text-teal-400 transition-colors">
+                Impressum
+              </a>
+              <a href="/coaching-agreement.html" className="text-gray-400 hover:text-teal-400 transition-colors">
                 Coaching Agreement
-              </button>
+              </a>
             </div>
           </div>
         </div>

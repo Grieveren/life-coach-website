@@ -136,6 +136,10 @@ warning-900: #78350f
 - Attention-grabbing elements
 - Information highlights
 
+## Typography
+
+Inter is self-hosted for GDPR compliance. See `src/index.css` for the `@font-face` declaration and `/public/fonts/` for the font files. Tailwind is configured to use `Inter, system-ui, sans-serif`.
+
 ## Component Classes
 
 ### Buttons

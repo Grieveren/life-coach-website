@@ -89,8 +89,8 @@ function validateEnv(): EnvConfig {
       name: import.meta.env.VITE_SITE_NAME || 'Life Coach Website',
     },
     contact: {
-      email: import.meta.env.VITE_CONTACT_EMAIL || 'contact@example.com',
-      phone: import.meta.env.VITE_CONTACT_PHONE,
+      email: import.meta.env.VITE_CONTACT_EMAIL || 'coaching@andreagray.de',
+      phone: import.meta.env.VITE_CONTACT_PHONE || '+49 176 64022283',
     },
     social: {
       linkedin: import.meta.env.VITE_LINKEDIN_URL,
