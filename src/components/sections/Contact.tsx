@@ -29,21 +29,28 @@ const Contact: React.FC = () => {
     });
 
     try {
-      // EmailJS configuration from environment
-      const { serviceId, templateId, publicKey } = emailjsConfig;
-
-      const templateParams = {
+      const payload = {
         from_name: data.name,
         from_email: data.email,
         phone: data.phone || 'Not provided',
         message: data.message,
         service_interest: data.serviceInterest || 'Not specified',
+        website: '' // honeypot field for server
       };
 
-      // Simulate network delay for testing
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      // Prefer server-side endpoint if available
+      const endpoint = '/contact.php';
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        // Fallback to EmailJS if server returns error
+        const { serviceId, templateId, publicKey } = emailjsConfig;
+        await emailjs.send(serviceId, templateId, payload, publicKey);
+      }
 
       setSubmissionState({
         isSubmitting: false,

@@ -190,6 +190,18 @@ node -e "console.log(process.env)" | grep VITE_
 - Strict-Transport-Security: 1 year (set in `.htaccess`)
 - Content-Security-Policy: baseline self-only policy (adjust if adding external services)
 
+### Server-side mail (PHP)
+- File: `public/contact.php` handles form submission.
+- Environment variables (set via cPanel > Cron/Environment or inline config):
+  - `CONTACT_TO` (default: coaching@andreagray.de)
+  - Optional SMTP for Office 365:
+    - `SMTP_HOST=smtp.office365.com`
+    - `SMTP_USER=coaching@andreagray.de`
+    - `SMTP_PASS=<app-password-or-smtp-password>`
+    - `SMTP_PORT=587`
+    - `SMTP_SECURE=STARTTLS`
+- If PHPMailer is unavailable, it falls back to `mail()`.
+
 ### Environment Variables
 - Never commit `.env.local` or production secrets
 - Use platform-specific environment variable management
