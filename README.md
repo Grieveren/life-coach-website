@@ -268,6 +268,7 @@ The project currently uses placeholder images from [Picsum Photos](https://picsu
 - **[Design System Guide](docs/DESIGN_SYSTEM.md)** - Comprehensive color palette, component classes, and usage guidelines
 - **[Content Management](docs/CONTENT_MANAGEMENT.md)** - JSON-based content management system documentation
 - **[Deployment Guide](docs/DEPLOYMENT.md)** - Comprehensive deployment instructions and configuration options
+ - **[Editing & Publishing](docs/EDITING_AND_PUBLISHING.md)** - Simple guide for making changes and publishing via cPanel
 
 ## 🔧 Configuration
 

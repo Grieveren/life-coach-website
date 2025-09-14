@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "package:zip": "npm run build && cd dist && zip -r site.zip .",
     "build:analyze": "npm run build && npx vite-bundle-analyzer dist/stats.html",
     "build:preview": "npm run build && npm run preview",
     "build:production": "NODE_ENV=production npm run build",
