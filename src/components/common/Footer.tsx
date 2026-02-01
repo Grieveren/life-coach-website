@@ -34,7 +34,6 @@ const defaultSocialLinks: SocialMediaLink[] = [
 
 const defaultContactInfo: ContactInfo = {
   email: 'coaching@andreagray.de',
-  phone: '+49 176 64022283',
   address: {
     city: 'Strasskirchen',
     state: 'Bavaria, Germany'

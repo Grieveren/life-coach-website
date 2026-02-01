@@ -33,7 +33,6 @@ describe('Contact Component', () => {
     // Check contact information
     expect(screen.getByText('Let\'s Connect')).toBeInTheDocument();
     expect(screen.getByText('coaching@andreagray.de')).toBeInTheDocument();
-    expect(screen.getByText('+49 176 64022283')).toBeInTheDocument();
     expect(screen.getByText('Within 24 hours')).toBeInTheDocument();
     
     // Check form elements

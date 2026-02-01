@@ -353,7 +353,6 @@ VITE_EMAILJS_PUBLIC_KEY=...
 VITE_SITE_URL=https://andreagray.de
 VITE_SITE_NAME="Andrea Gray Coaching"
 VITE_CONTACT_EMAIL=coaching@andreagray.de
-VITE_CONTACT_PHONE="+49 176 64022283"
 ```
 - Rebuild and deploy. The `Contact` form will send emails to the configured address.
 

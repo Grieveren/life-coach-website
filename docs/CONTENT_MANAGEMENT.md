@@ -164,7 +164,6 @@ General site settings and information:
   },
   "contact": {
     "email": "coaching@andreagray.de",
-    "phone": "+49 176 64022283",
     "address": {
       "city": "Strasskirchen",
       "state": "Bavaria, Germany"

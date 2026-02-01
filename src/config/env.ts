@@ -90,7 +90,7 @@ function validateEnv(): EnvConfig {
     },
     contact: {
       email: import.meta.env.VITE_CONTACT_EMAIL || 'coaching@andreagray.de',
-      phone: import.meta.env.VITE_CONTACT_PHONE || '+49 176 64022283',
+      phone: import.meta.env.VITE_CONTACT_PHONE,
     },
     social: {
       linkedin: import.meta.env.VITE_LINKEDIN_URL,

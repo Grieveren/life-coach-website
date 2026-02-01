@@ -46,7 +46,6 @@ VITE_CONTACT_EMAIL=coaching@andreagray.de
 
 ### Optional Environment Variables
 ```bash
-VITE_CONTACT_PHONE="+49 176 64022283"
 VITE_LINKEDIN_URL=https://linkedin.com/in/profile
 VITE_FACEBOOK_URL=https://facebook.com/page
 VITE_INSTAGRAM_URL=https://instagram.com/profile
